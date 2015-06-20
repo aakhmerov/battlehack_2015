@@ -4,10 +4,18 @@ require([
 function configurationLoaded() {
 	'use strict';
 	require([
-		'views/FormView',
+		'Backbone',
+		'Site',
+		'Router',
 		'bootstrap'
 	],
-	function appLoaded(FormView) {
-		new FormView();
+	function appLoaded(Backbone, Site, Router) {
+		var site,
+			router;
+			
+		site = new Site();
+		router = new Router();
+		
+		Backbone.history.start();
 	});
 });
