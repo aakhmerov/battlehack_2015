@@ -63,7 +63,7 @@ public final class Main {
         SelectChannelConnector connector =
                 new SelectChannelConnector();
         connector.setPort(PORT);
-        connector.setHost("localhost");
+        connector.setHost("0.0.0.0");
         return connector;
     }
 
