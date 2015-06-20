@@ -6,6 +6,7 @@ package com.battlehack.melder.api.tos;
 public class PossibleBookingTO {
     private String date;
     private String place;
+    private String url;
 
     public String getDate() {
         return date;
@@ -21,5 +22,13 @@ public class PossibleBookingTO {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

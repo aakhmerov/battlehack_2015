@@ -1,9 +1,12 @@
 package com.battlehack.melder.api.service;
 
+import com.battlehack.melder.api.tos.PossibleBookingTO;
 import com.battlehack.melder.api.tos.PossibleBookingsTO;
 import com.battlehack.melder.api.tos.ServiceTO;
 import com.battlehack.melder.api.tos.ServicesTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.List;
 
 /**
  * Created by aakhmerov on 20.06.15.
@@ -24,6 +31,9 @@ public class AmtService {
     private static final String BASE_URL = "http://service.berlin.de";
     private static final String LIST_URL = BASE_URL + "/dienstleistungen/";
     private static final String CACHED_SERVICES = "services.json";
+    private static final String DATE = "datum";
+    private static final String NEXT_SELECTOR = ".next a";
+    private static final String TAG_PAGE = "tag.php";
 
     /**
      * Connect to the website providing list of available services
@@ -101,9 +111,107 @@ public class AmtService {
     public PossibleBookingsTO getPossibleBookings(ServiceTO service) {
         PossibleBookingsTO result = new PossibleBookingsTO();
         try {
-            Document doc = Jsoup.connect(BASE_URL + service.getBookingUrl()).get();
+
+            boolean allProcessed = false;
+
+            Document doc = Jsoup.connect(service.getBookingUrl()).get();
+            Elements bookable = getBookableOnNextPage(doc);
+            while (!allProcessed && doc != null) {
+                if (bookable != null && bookable.size() > 0) {
+                    for (Element bookableDate : bookable) {
+                        String href = bookableDate.attr("href");
+                        URI url = new URI(BASE_URL + "/" + href);
+                        List<NameValuePair> params = URLEncodedUtils.parse(url,"UTF-8");
+                        String date = null;
+                        for (NameValuePair pair : params) {
+                            if (DATE.equalsIgnoreCase(pair.getName())) {
+                                date = pair.getValue();
+                                break;
+                            }
+                        }
+                        PossibleBookingTO toAdd = new PossibleBookingTO();
+                        toAdd.setUrl(href);
+                        toAdd.setDate(date);
+                        result.getPossibleBookings().add(toAdd);
+                    }
+                }
+                if (!scrollAvailable(doc)) {
+                    allProcessed = true;
+                } else {
+                    doc = getNextPage(doc);
+                    bookable = getBookableOnNextPage(doc);
+                }
+            }
+
+
+
         } catch (IOException e) {
             LOGGER.error("can't get booking calendar", e);
+        } catch (URISyntaxException e) {
+            LOGGER.error("can't compose URI",e);
+        }
+        return result;
+    }
+
+    /**
+     * Based on the page determine URL of the next schedule page and load document
+     * that represents it;
+     *
+     * Get button to navigate to next page, take href argument and navigate to next page
+     *
+     * @return
+     * @param doc
+     */
+    private Document getNextPage(Document doc) {
+        Document result = null;
+
+        Elements nextButtons = doc.select(NEXT_SELECTOR);
+        if (nextButtons != null && nextButtons.size() > 1) {
+            String pageUrl = nextButtons.get(1).attr("href");
+            try {
+                String newUrl = new URL(doc.baseUri()).getPath().replace(TAG_PAGE,pageUrl);
+                result = Jsoup.connect(BASE_URL + newUrl).get();
+            } catch (IOException e) {
+                LOGGER.error("can't load next page",e);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Based on page determine if there is possibility to scroll to the next
+     * schedule page.
+     *
+     * Please note that there is at least one next page button always present, so
+     * in reality we are only interested in cases when there are 2 buttons on the
+     * page
+     *
+     * TODO: move to the helper method
+     * @param doc
+     * @return
+     */
+    private boolean scrollAvailable(Document doc) {
+        boolean result = false;
+        Elements nextButtons = doc.select(NEXT_SELECTOR);
+        if (nextButtons != null && nextButtons.size() > 1) {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Based on current schedule page, select
+     *
+     * TODO: Move to Helper class
+     *
+     * @param doc
+     * @return
+     */
+    private Elements getBookableOnNextPage(Document doc) {
+        Elements result = null;
+        if (doc != null) {
+            result = doc.select(".buchbar a");
         }
         return result;
     }
