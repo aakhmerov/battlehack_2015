@@ -6,16 +6,13 @@ function configurationLoaded() {
 	require([
 		'Backbone',
 		'Site',
-		'Router',
 		'bootstrap'
 	],
-	function appLoaded(Backbone, Site, Router) {
-		var site,
-			router;
-			
-		site = new Site();
-		router = new Router();
-		
+	function appLoaded(
+		Backbone,
+		Site
+	) {
+		new Site();
 		Backbone.history.start();
 	});
 });

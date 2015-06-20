@@ -3,23 +3,29 @@ define([
 	'underscore',
 	'Backbone',
 	'Mustache',
+	'views/AbstractView',
 	'text!/templates/result_view.html'
 ], function DefineResultView(
 	_,
 	$,
 	Backbone,
 	Mustache,
+	AbstractView,
 	template
 ) {
-	return Backbone.View.extend({
+	return AbstractView.extend({
 		el: '#container',
 		events: {},
+		name: 'ResultView',
 		initialize: function(options) {
 			this.template = template;
 			this.resultID = options.resultID;
+			this.results = [];
 		},
 		getTemplateData: function() {
-			var data = {};
+			var data = {
+				hasResults: this.results.length > 0
+			};
 			
 			return data;
 		},

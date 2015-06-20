@@ -6,17 +6,19 @@ define([
 	Backbone
 ) {
 	return Backbone.Model.extend({
-		url: '/test',
+		url: '/melder-api/services/amt/bookings/',
 		requiredDataComplete: function() {
-			var firstname = this.get('firstname'),
-				lastname = this.get('lastname'),
+			var firstName = this.get('firstName'),
+				lastName = this.get('lastName'),
 				email = this.get('email'),
-				phone = this.get('phone');
+				phone = this.get('phone'),
+				serviceId = this.get('serviceId');
 				
-			return (firstname && firstname.length > 0) &&
-				(lastname && lastname.length > 0) &&
+			return (firstName && firstName.length > 0) &&
+				(lastName && lastName.length > 0) &&
 				(email && email.length > 0) &&
-				(phone && phone.length > 0);
+				(phone && phone.length > 0) &&
+				serviceId;
 		}
 	});
 });

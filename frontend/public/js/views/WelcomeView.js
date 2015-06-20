@@ -3,17 +3,20 @@ define([
 	'underscore',
 	'Backbone',
 	'Mustache',
+	'views/AbstractView',
 	'text!/templates/welcome_view.html'
 ], function DefineWelcomeView(
 	_,
 	$,
 	Backbone,
 	Mustache,
+	AbstractView,
 	template
 ) {
-	return Backbone.View.extend({
+	return AbstractView.extend({
 		el: '#container',
 		events: {},
+		name: 'WelcomeView',
 		initialize: function() {
 			this.template = template;
 		},
