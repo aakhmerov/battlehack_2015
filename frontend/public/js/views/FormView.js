@@ -24,7 +24,7 @@ define([
 		events: {
 			'change #services-list': 'serviceSelected',
 			'click button#toggle-optional': 'toggleOptional',
-			'click #submit-container:not(.disabled)': 'submitForm',
+			'click #submit-container': 'submitForm',
 			'blur .required': 'requiredFieldChanged',
 			'blur .optional': 'optionalFieldChanged'
 		},
@@ -99,10 +99,14 @@ define([
 			console.log('FormView: toogleOptional');
 			this.$el.find('#optional-information').toggleClass('hidden');
 		},
-		submitForm: function() {
+		submitForm: function(e) {
 			var optionalDay = this.$el.find('#optional-date').val(),
 				optionalTime = this.$el.find('#optional-time').val(),
 				optionalZipcodes = this.$el.find('#optional-zipcode').val();
+				
+			if ($(e.target).hasClass('disabled')) {
+				return;
+			}
 				
 			console.log('FormView: submitForm');	
 				
@@ -111,11 +115,14 @@ define([
 			this.model.set('zipCodes', optionalZipcodes);
 			
 			console.log(this.model.toJSON());
+
+			// FAKE REDIRECT FOR TESTING
+			location.hash = '#result/123';
 			
-			this.model.save({
-				success: this.success.bind(this),
-				error: this.error.bind(this)
-			});
+//			this.model.save({
+//				success: this.success.bind(this),
+//				error: this.error.bind(this)
+//			});
 
 //			$.ajax({
 //			     url: this.model.url,
@@ -153,11 +160,11 @@ define([
 			
 			this.model.set(e.target.name, e.target.value);
 		},
-		error: function() {
-			console.warn(this.name + ': Error sending data!', arguments);
+		error: function(model, response, options) {
+			console.warn(this.name + ': Error sending data!', model, response, options);
 		},
-		success: function() {
-			console.info(this.name + ': Success!', arguments);
+		success: function(model, response, options) {
+			console.info(this.name + ': Success!', model, response, options);
 		}
 	});
 });
