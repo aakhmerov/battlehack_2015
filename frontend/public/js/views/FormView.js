@@ -3,6 +3,7 @@ define([
 	'jquery',
 	'Backbone',
 	'Mustache',
+	'models/FormModel',
 	'text!/templates/form_view.html',
 	'text!/resources/services.json',
 	'select2',
@@ -12,24 +13,28 @@ define([
 	$,
 	Backbone,
 	Mustache,
+	FormModel,
 	template,
 	services
 ) {
 	return Backbone.View.extend({
-		el: '#form-container',
+		el: '#container',
 		events: {
 			'change #services-list': 'serviceSelected',
-			'click #toggle-optional': 'toggleOptional' 
+			'click #toggle-optional': 'toggleOptional',
+			'click #submit-container': 'submitForm',
+			'blur .required': 'requiredFiledChanged',
+			'blur .optional': 'optionalFieldChanged'
 		},
 		initialize: function() {
 			this.template = template;
 			this.services = JSON.parse(services).services;
-			console.log(this.services.length);
+			this.model = new FormModel();
 			this.render();
 		},
 		getTemplateData: function() {
 			var data = {
-				services: '<option></option>'
+				services: ''
 			};
 			
 			this.services.forEach(function forEachService(service) {
@@ -72,11 +77,47 @@ define([
 			else {
 				this.$el.find('#personal-data').addClass('hidden');
 				this.$el.find('#toggle-optional').addClass('hidden');
+				this.$el.find('#optional-information').addClass('hidden');
 				this.$el.find('#submit-container').addClass('hidden');
 			}
 		},
 		toggleOptional: function() {
 			this.$el.find('#optional-information').toggleClass('hidden');
+		},
+		submitForm: function() {
+			var optionalDay = this.$el.find('#optional-date').val(),
+				optionalTime = this.$el.find('#optional-time').val(),
+				optionalZipcodes = this.$el.find('#optional-zipcode').val();	
+				
+			this.model.set('date', optionalDay);
+			this.model.set('time', optionalTime);
+			this.model.set('zipcodes', optionalZipcodes);
+			
+			console.log(this.model.toJSON());
+			//this.model.save();
+		},
+		requiredFiledChanged: function(e) {
+			
+			if (e.target.value.length === 0) {
+				return;
+			}
+			
+			this.model.set(e.target.name, e.target.value);
+			
+			if (this.model.requiredDataComplete()) {
+				this.$el.find('#submit-container .btn').removeClass('disabled');
+			}
+			else {
+				this.$el.find('#submit-container .btn').addClass('disabled');
+			}
+		},
+		optionalFiledChanged: function(e) {
+			
+			if (e.target.value.length === 0) {
+				return;
+			}
+			
+			this.model.set(e.target.name, e.target.value);
 		}
 	});
 });

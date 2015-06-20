@@ -1,0 +1,290 @@
+{"services": [
+    {
+        "name": "Abholung von sichergestellten Fahrzeugen",
+        "id": "326423",
+        "href": "/dienstleistung/326423/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=326423&dienstleisterlist=121650,121649&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F326423%2F"
+    },
+    {
+        "name": "Abmeldung einer Wohnung",
+        "id": "120335",
+        "href": "/dienstleistung/120335/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120335&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122283,122279,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120335%2F"
+    },
+    {
+        "name": "Änderung/Wechsel der Hauptwohnung",
+        "id": "120697",
+        "href": "/dienstleistung/120697/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120697&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120697%2F"
+    },
+    {
+        "name": "Anmeldung einer Wohnung",
+        "id": "120686",
+        "href": "/dienstleistung/120686/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120686&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120686%2F"
+    },
+    {
+        "name": "Anschriftenänderung in dem Fahrzeugschein bzw. der Zulassungsbescheinigung Teil I (ZBI)",
+        "id": "120658",
+        "href": "/dienstleistung/120658/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120658&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120658%2F"
+    },
+    {
+        "name": "Aufenthaltserlaubnis für im Bundesgebiet geborene Kinder - Erteilung",
+        "id": "324269",
+        "href": "/dienstleistung/324269/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=324269&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,122281,324414,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F324269%2F"
+    },
+    {
+        "name": "Außerbetriebsetzung eines KFZ",
+        "id": "120877",
+        "href": "/dienstleistung/120877/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120877&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120877%2F"
+    },
+    {
+        "name": "Beglaubigung von Kopien oder Abschriften",
+        "id": "121701",
+        "href": "/dienstleistung/121701/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121701&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121701%2F"
+    },
+    {
+        "name": "Beglaubigung von Unterschriften",
+        "id": "158142",
+        "href": "/dienstleistung/158142/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=158142&dienstleisterlist=122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F158142%2F"
+    },
+    {
+        "name": "Begleitetes Fahren mit 17",
+        "id": "121589",
+        "href": "/dienstleistung/121589/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121589&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121589%2F"
+    },
+    {
+        "name": "Begutachtung von sichergestellten Fahrzeugen (nur für bestellte Gutachter und Versicherungen)",
+        "id": "326425",
+        "href": "/dienstleistung/326425/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=326425&dienstleisterlist=121650,121649&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F326425%2F"
+    },
+    {
+        "name": "Besichtigung und Entnahmen von im Land Berlin sichergestellten Fahrzeugen durch den Berechtigten",
+        "id": "326401",
+        "href": "/dienstleistung/326401/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=326401&dienstleisterlist=121650,121649&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F326401%2F"
+    },
+    {
+        "name": "Ersatzführerschein nach Verlust/Diebstahl",
+        "id": "121593",
+        "href": "/dienstleistung/121593/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121593&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121593%2F"
+    },
+    {
+        "name": "Ersterteilung einer Fahrerlaubnis",
+        "id": "121627",
+        "href": "/dienstleistung/121627/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121627&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121627%2F"
+    },
+    {
+        "name": "Erweiterung einer Fahrerlaubnis",
+        "id": "121629",
+        "href": "/dienstleistung/121629/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121629&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121629%2F"
+    },
+    {
+        "name": "Fahrerlaubnis zur Fahrgastbeförderung (P-Schein) - Erteilung",
+        "id": "121622",
+        "href": "/dienstleistung/121622/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121622&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121622%2F"
+    },
+    {
+        "name": "Fahrerlaubnis zur Fahrgastbeförderung (P-Schein) - Verlängerung",
+        "id": "324389",
+        "href": "/dienstleistung/324389/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=324389&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F324389%2F"
+    },
+    {
+        "name": "Führungszeugnis",
+        "id": "120926",
+        "href": "/dienstleistung/120926/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120926&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120926%2F"
+    },
+    {
+        "name": "Hort-Gutschein - Erweiterung",
+        "id": "324917",
+        "href": "/dienstleistung/324917/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=324917&dienstleisterlist=324903,325897,123613&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F324917%2F"
+    },
+    {
+        "name": "Hort-Gutschein / Bedarfsbescheid",
+        "id": "324901",
+        "href": "/dienstleistung/324901/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=324901&dienstleisterlist=324903,325897,123613&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F324901%2F"
+    },
+    {
+        "name": "Internationaler Führerschein",
+        "id": "121591",
+        "href": "/dienstleistung/121591/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121591&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121591%2F"
+    },
+    {
+        "name": "Kinderreisepass beantragen / verlängern / aktualisieren",
+        "id": "121469",
+        "href": "/dienstleistung/121469/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121469&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121469%2F"
+    },
+    {
+        "name": "Meldebescheinigung beantragen",
+        "id": "120702",
+        "href": "/dienstleistung/120702/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120702&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120702%2F"
+    },
+    {
+        "name": "Melderegisterauskunft einholen",
+        "id": "120732",
+        "href": "/dienstleistung/120732/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120732&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120732%2F"
+    },
+    {
+        "name": "Melderegisterauskunft sperren",
+        "id": "120678",
+        "href": "/dienstleistung/120678/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120678&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120678%2F"
+    },
+    {
+        "name": "Melderegisterauskunft: Datenübermittlung an Behörden und öffentliche Stellen",
+        "id": "320303",
+        "href": "/dienstleistung/320303/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=320303&dienstleisterlist=122231,122276,122274,122246,122251,122257&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F320303%2F"
+    },
+    {
+        "name": "Neuerteilung der Fahrerlaubnis",
+        "id": "121637",
+        "href": "/dienstleistung/121637/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121637&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121637%2F"
+    },
+    {
+        "name": "Personalausweis beantragen",
+        "id": "120703",
+        "href": "/dienstleistung/120703/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120703&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120703%2F"
+    },
+    {
+        "name": "Personalausweis vorläufig beantragen",
+        "id": "120682",
+        "href": "/dienstleistung/120682/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120682&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120682%2F"
+    },
+    {
+        "name": "Personalausweisverlust",
+        "id": "120726",
+        "href": "/dienstleistung/120726/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=120726&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F120726%2F"
+    },
+    {
+        "name": "Reisepass beantragen",
+        "id": "121151",
+        "href": "/dienstleistung/121151/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121151&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121151%2F"
+    },
+    {
+        "name": "Reisepass beantragen (vorläufiger Reisepass)",
+        "id": "121153",
+        "href": "/dienstleistung/121153/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121153&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121153%2F"
+    },
+    {
+        "name": "Reisepassverlust",
+        "id": "121368",
+        "href": "/dienstleistung/121368/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121368&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121368%2F"
+    },
+    {
+        "name": "Rundfunkbeitrag / Beitragspflicht, Befreiung vom Rundfunkbeitrag",
+        "id": "324531",
+        "href": "/dienstleistung/324531/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=324531&dienstleisterlist=150230,122301,122297,122294,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F324531%2F"
+    },
+    {
+        "name": "Schwerbehindertenausweis",
+        "id": "121737",
+        "href": "/dienstleistung/121737/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121737&dienstleisterlist=325721,326139&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121737%2F"
+    },
+    {
+        "name": "Schwerbehindertenausweis - Verlust",
+        "id": "326806",
+        "href": "/dienstleistung/326806/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=326806&dienstleisterlist=325721,326139&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F326806%2F"
+    },
+    {
+        "name": "Schwerbehinderung - Änderungsmitteilung",
+        "id": "325143",
+        "href": "/dienstleistung/325143/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=325143&dienstleisterlist=325721,326139&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F325143%2F"
+    },
+    {
+        "name": "Schwerbehinderung - Feststellungsverfahren",
+        "id": "326173",
+        "href": "/dienstleistung/326173/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=326173&dienstleisterlist=325721,326139&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F326173%2F"
+    },
+    {
+        "name": "Schwerbehinderung - Wertmarke / Beiblatt (Verlust)",
+        "id": "325339",
+        "href": "/dienstleistung/325339/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=325339&dienstleisterlist=325721,326139&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F325339%2F"
+    },
+    {
+        "name": "Übertragung einer Aufenthaltserlaubnis in einen neuen Pass",
+        "id": "121874",
+        "href": "/dienstleistung/121874/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121874&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,122281,324414,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121874%2F"
+    },
+    {
+        "name": "Übertragung einer Niederlassungserlaubnis in einen neuen Pass",
+        "id": "324280",
+        "href": "/dienstleistung/324280/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=324280&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,122281,324414,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F324280%2F"
+    },
+    {
+        "name": "Umschreibung einer ausländischen Fahrerlaubnis",
+        "id": "121598",
+        "href": "/dienstleistung/121598/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121598&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121598%2F"
+    },
+    {
+        "name": "Umschreibung einer Dienstfahrerlaubnis",
+        "id": "121615",
+        "href": "/dienstleistung/121615/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121615&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121615%2F"
+    },
+    {
+        "name": "Umstellung der Fahrerlaubnis",
+        "id": "124556",
+        "href": "/dienstleistung/124556/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=124556&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F124556%2F"
+    },
+    {
+        "name": "Umtausch eines Kartenführerscheins",
+        "id": "121616",
+        "href": "/dienstleistung/121616/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121616&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121616%2F"
+    },
+    {
+        "name": "Verlängerung der Fahrerlaubnis",
+        "id": "121634",
+        "href": "/dienstleistung/121634/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121634&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121634%2F"
+    },
+    {
+        "name": "Widerspruchsrechte gegen Datenübermittlungen und Melderegisterauskünfte",
+        "id": "319141",
+        "href": "/dienstleistung/319141/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=319141&dienstleisterlist=122231,122238,122243,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F319141%2F"
+    },
+    {
+        "name": "Zulassungsbescheinigung Teil I für KFZ wegen Verlust oder Diebstahl ersetzen",
+        "id": "121575",
+        "href": "/dienstleistung/121575/",
+        "bookingUrl": "https://service.berlin.de/terminvereinbarung/termin/tag.php?termin=1&anliegen[]=121575&dienstleisterlist=122210,122217,122219,122227,122231,122238,122243,122252,122260,122262,122254,122271,122273,122277,122280,122282,122284,122285,122286,122296,150230,122301,122297,122294,122312,122314,122304,122311,122309,317869,324433,325341,324434,122281,324414,122283,122279,122276,122274,122267,122246,122251,122257,122208,122226&herkunft=http%3A%2F%2Fservice.berlin.de%2Fdienstleistung%2F121575%2F"
+    }
+]}
