@@ -55,7 +55,7 @@ public class MelderRestService {
     public PossibleBookingsTO getBookings(UserDataTO userDataTO) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            LOGGER.debug(mapper.writeValueAsString(userDataTO));
+            LOGGER.info(mapper.writeValueAsString(userDataTO));
         } catch (JsonProcessingException e) {
             LOGGER.error("cant serialize user",e);
         }
