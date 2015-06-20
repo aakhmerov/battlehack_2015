@@ -55,4 +55,18 @@ public class AmtServiceTest {
             assertThat(booking.getBookingTime(),is(notNullValue()));
         }
     }
+
+    @Test
+    public void testBookingsByService() throws Exception {
+        PossibleBookingsTO bookings = amtService.getBookings("120335");
+        assertThat(bookings,is(notNullValue()));
+        assertThat(bookings.getPossibleBookings(),is(notNullValue()));
+        assertThat(bookings.getPossibleBookings().size(),is(greaterThan(0)));
+        for (PossibleBookingTO booking : bookings.getPossibleBookings()) {
+            assertThat(booking.getDate(),is(notNullValue()));
+            assertThat(booking.getDateUrl(),is(notNullValue()));
+            assertThat(booking.getBookingUrl(),is(notNullValue()));
+            assertThat(booking.getBookingTime(),is(notNullValue()));
+        }
+    }
 }

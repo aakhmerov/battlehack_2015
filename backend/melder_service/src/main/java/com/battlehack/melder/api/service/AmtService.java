@@ -42,6 +42,7 @@ public class AmtService {
     private static final String TIME = "zeit";
 
     private static final HashMap <String, ServiceTO> PROVIDED_SERVICES = new HashMap<String, ServiceTO>();
+    private static final int CONNECTION_TIMEOUT = 10000;
     private static ServicesTO LOADED_SERVICES;
     /**
      * Connect to the website providing list of available services
@@ -52,7 +53,7 @@ public class AmtService {
         ServicesTO result = new ServicesTO ();
         Document doc = null;
         try {
-            doc = Jsoup.connect(LIST_URL).get();
+            doc = Jsoup.connect(LIST_URL).timeout(CONNECTION_TIMEOUT).get();
             Elements serviceElements = doc.select(".list a");
             for (Element e : serviceElements) {
                 ServiceTO toAdd = new ServiceTO();
@@ -78,7 +79,7 @@ public class AmtService {
 
         for (ServiceTO serviceDescription : allServices.getServices()) {
             try {
-                Document doc = Jsoup.connect(BASE_URL + serviceDescription.getHref()).get();
+                Document doc = Jsoup.connect(BASE_URL + serviceDescription.getHref()).timeout(CONNECTION_TIMEOUT).get();
                 Elements selected = doc.select(".zmstermin-multi a");
                 if (selected != null && selected.size() != 0) {
                     serviceDescription.setBookingUrl(selected.attr("href"));
@@ -141,7 +142,7 @@ public class AmtService {
         PossibleBookingsTO result = new PossibleBookingsTO();
         try {
             boolean allProcessed = false;
-            Document doc = Jsoup.connect(service.getBookingUrl()).get();
+            Document doc = Jsoup.connect(service.getBookingUrl()).timeout(CONNECTION_TIMEOUT).get();
             Elements bookable = getBookable(doc);
             while (!allProcessed && doc != null) {
                 if (bookable != null && bookable.size() > 0) {
@@ -212,7 +213,7 @@ public class AmtService {
         for (PossibleBookingTO bookingInitial : bookingDates.getPossibleBookings()) {
             Document doc = null;
             try {
-                doc = Jsoup.connect(TERMIN_BASE + bookingInitial.getDateUrl()).get();
+                doc = Jsoup.connect(TERMIN_BASE + bookingInitial.getDateUrl()).timeout(CONNECTION_TIMEOUT).get();
                 result.getPossibleBookings().addAll(getPreciseBookings(doc, bookingInitial));
             } catch (IOException e) {
                 LOGGER.error("can't get bookings on date [" + bookingInitial.getDate() + "]", e);
@@ -287,7 +288,7 @@ public class AmtService {
             String pageUrl = nextButtons.get(1).attr("href");
             try {
                 String newUrl = new URL(doc.baseUri()).getPath().replace(TAG_PAGE,pageUrl);
-                result = Jsoup.connect(BASE_URL + newUrl).get();
+                result = Jsoup.connect(BASE_URL + newUrl).timeout(CONNECTION_TIMEOUT).get();
             } catch (IOException e) {
                 LOGGER.error("can't load next page",e);
             }
