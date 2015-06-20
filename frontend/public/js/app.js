@@ -4,10 +4,10 @@ require([
 function configurationLoaded() {
 	'use strict';
 	require([
-		// Load more modules here
+		'views/FormView',
 		'bootstrap'
 	],
-	function appLoaded() {
-		// App is loaded, start coding here
+	function appLoaded(FormView) {
+		new FormView();
 	});
 });
