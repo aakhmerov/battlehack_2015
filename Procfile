@@ -1,1 +1,1 @@
-java -XX:+UseCompressedOops -cp backend/melder_rest/target/classes:backend/melder_war/target/melder_war-1.0-SNAPSHOT/WEB-INF/lib/* com.battlehack.melder.api.Main
+web: java -XX:+UseCompressedOops -cp backend/melder_rest/target/classes:backend/melder_war/target/melder_war-1.0-SNAPSHOT/WEB-INF/lib/* com.battlehack.melder.api.Main
