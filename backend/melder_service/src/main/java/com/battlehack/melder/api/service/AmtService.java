@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -22,6 +23,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,6 +41,9 @@ public class AmtService {
     private static final String TERMIN_BASE = "https://service.berlin.de/terminvereinbarung/termin/";
     private static final String TIME = "zeit";
 
+    private static final HashMap <String, ServiceTO> PROVIDED_SERVICES = new HashMap<String, ServiceTO>();
+    private static final int CONNECTION_TIMEOUT = 10000;
+    private static ServicesTO LOADED_SERVICES;
     /**
      * Connect to the website providing list of available services
      * and return them as a list
@@ -48,7 +53,7 @@ public class AmtService {
         ServicesTO result = new ServicesTO ();
         Document doc = null;
         try {
-            doc = Jsoup.connect(LIST_URL).get();
+            doc = Jsoup.connect(LIST_URL).timeout(CONNECTION_TIMEOUT).get();
             Elements serviceElements = doc.select(".list a");
             for (Element e : serviceElements) {
                 ServiceTO toAdd = new ServiceTO();
@@ -74,7 +79,7 @@ public class AmtService {
 
         for (ServiceTO serviceDescription : allServices.getServices()) {
             try {
-                Document doc = Jsoup.connect(BASE_URL + serviceDescription.getHref()).get();
+                Document doc = Jsoup.connect(BASE_URL + serviceDescription.getHref()).timeout(CONNECTION_TIMEOUT).get();
                 Elements selected = doc.select(".zmstermin-multi a");
                 if (selected != null && selected.size() != 0) {
                     serviceDescription.setBookingUrl(selected.attr("href"));
@@ -94,16 +99,37 @@ public class AmtService {
      *
      * @return wrapped object representing all filtered services
      */
+    @PostConstruct
     public ServicesTO loadCachedServices () {
         ObjectMapper mapper = new ObjectMapper();
         InputStream json = this.getClass().getClassLoader().getResourceAsStream(CACHED_SERVICES);
-        ServicesTO cachedServices = null;
+
         try {
-             cachedServices = mapper.readValue(json,ServicesTO.class);
+            LOADED_SERVICES = mapper.readValue(json,ServicesTO.class);
+            for (ServiceTO service : LOADED_SERVICES.getServices()) {
+                PROVIDED_SERVICES.put(service.getId(),service);
+            }
         } catch (IOException e) {
             LOGGER.error("can't parse cached values");
         }
-        return cachedServices;
+        return LOADED_SERVICES;
+    }
+
+    /**
+     * Obtain wrapped service object from preloaded services cache
+     * @param serviceId
+     * @return
+     */
+    public ServiceTO locateService (String serviceId) {
+        return PROVIDED_SERVICES.get(serviceId);
+    }
+
+    /**
+     * Short cut to services that are already in memory, for fast loading
+     * @return
+     */
+    public ServicesTO getProvidedServices () {
+        return LOADED_SERVICES;
     }
 
     /**
@@ -116,7 +142,7 @@ public class AmtService {
         PossibleBookingsTO result = new PossibleBookingsTO();
         try {
             boolean allProcessed = false;
-            Document doc = Jsoup.connect(service.getBookingUrl()).get();
+            Document doc = Jsoup.connect(service.getBookingUrl()).timeout(CONNECTION_TIMEOUT).get();
             Elements bookable = getBookable(doc);
             while (!allProcessed && doc != null) {
                 if (bookable != null && bookable.size() > 0) {
@@ -187,7 +213,7 @@ public class AmtService {
         for (PossibleBookingTO bookingInitial : bookingDates.getPossibleBookings()) {
             Document doc = null;
             try {
-                doc = Jsoup.connect(TERMIN_BASE + bookingInitial.getDateUrl()).get();
+                doc = Jsoup.connect(TERMIN_BASE + bookingInitial.getDateUrl()).timeout(CONNECTION_TIMEOUT).get();
                 result.getPossibleBookings().addAll(getPreciseBookings(doc, bookingInitial));
             } catch (IOException e) {
                 LOGGER.error("can't get bookings on date [" + bookingInitial.getDate() + "]", e);
@@ -262,7 +288,7 @@ public class AmtService {
             String pageUrl = nextButtons.get(1).attr("href");
             try {
                 String newUrl = new URL(doc.baseUri()).getPath().replace(TAG_PAGE,pageUrl);
-                result = Jsoup.connect(BASE_URL + newUrl).get();
+                result = Jsoup.connect(BASE_URL + newUrl).timeout(CONNECTION_TIMEOUT).get();
             } catch (IOException e) {
                 LOGGER.error("can't load next page",e);
             }
@@ -306,5 +332,18 @@ public class AmtService {
             result = doc.select(".buchbar a");
         }
         return result;
+    }
+
+    /**
+     * Locate cached service based on id
+     * pull all possible bookings for it
+     * @param serviceId
+     * @return
+     */
+    public PossibleBookingsTO getBookings(String serviceId) {
+        ServiceTO service = locateService(serviceId);
+        PossibleBookingsTO bookingDates = this.getPossibleBookingDates(service);
+        PossibleBookingsTO bookings = this.getPossibleBookings(bookingDates);
+        return bookings;
     }
 }

@@ -1,7 +1,7 @@
 server {
     listen 80;
 
-    server_name yin-local.ru yin-local.com;
+    server_name battlehack2015-local.com;
 
     gzip             on;
     #gzip_min_length  1000;
@@ -17,16 +17,16 @@ server {
     access_log /var/log/nginx/yin-local.access.log;
     error_log /var/log/nginx/yin-local.error.log;
 
-    root /home/aakhmerov/Work/yin/big_data/dev/yin_data/frontend;
+    root /home/phil/projects/battlehack_2015/frontend/public;
 
     location ~ \.js$ {
     	try_files $uri =204;
     }
 
-    location /yin-api {
-        proxy_pass http://localhost:9001;
-        access_log /var/log/nginx/yin-api.access.log;
-        error_log /var/log/nginx/yin-api.error.log;
+    location /melder-api {
+        proxy_pass https://aqueous-meadow-5830.herokuapp.com;
+        access_log /var/log/nginx/battlehack2015-api.access.log;
+        error_log /var/log/nginx/battlehack2015-api.error.log;
         proxy_redirect          off;
         proxy_connect_timeout   60s;
     }

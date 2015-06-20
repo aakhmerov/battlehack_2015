@@ -19,6 +19,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <module>melder_rest</module>
         <module>melder_service</module>
         <module>melder_dal</module>
+        <module>melder_war</module>
     </modules>
 
     <build>
@@ -74,6 +75,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>2.5</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- Spring Security -->
