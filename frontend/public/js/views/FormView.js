@@ -18,7 +18,7 @@ define([
 	services
 ) {
 	return Backbone.View.extend({
-		el: '#form-container',
+		el: '#container',
 		events: {
 			'change #services-list': 'serviceSelected',
 			'click #toggle-optional': 'toggleOptional',
