@@ -47,7 +47,7 @@ public class AmtServiceTest {
         PossibleBookingsTO bookings = amtService.getPossibleBookings(bookingDates);
         assertThat(bookings,is(notNullValue()));
         assertThat(bookings.getPossibleBookings(),is(notNullValue()));
-        assertThat(bookings.getPossibleBookings().size(),is(greaterThan(3)));
+        assertThat(bookings.getPossibleBookings().size(),is(greaterThan(bookingDates.getPossibleBookings().size())));
         for (PossibleBookingTO booking : bookings.getPossibleBookings()) {
             assertThat(booking.getDate(),is(notNullValue()));
             assertThat(booking.getDateUrl(),is(notNullValue()));
