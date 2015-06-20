@@ -1,5 +1,6 @@
 package com.battlehack.melder.api.service;
 
+import com.battlehack.melder.api.tos.ServiceTO;
 import com.battlehack.melder.api.tos.ServicesTO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,11 +32,17 @@ public class AmtService {
             doc = Jsoup.connect(LIST_URL).get();
             Elements serviceElements = doc.select(".list a");
             for (Element e : serviceElements) {
-                result.getServices().add(e.html());
+                ServiceTO toAdd = new ServiceTO();
+                toAdd.setName(e.html());
+                toAdd.setHref(e.attr("href"));
+                toAdd.setId(e.attr("href").split("/")[2]);
+                result.getServices().add(toAdd);
             }
         } catch (IOException e) {
             LOGGER.error("can't get list of public services",e);
         }
         return result;
     }
+
+
 }

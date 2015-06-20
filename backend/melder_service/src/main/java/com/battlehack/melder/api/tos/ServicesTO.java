@@ -9,13 +9,13 @@ import java.util.List;
  */
 @XmlRootElement
 public class ServicesTO {
-    private List<String> services = new ArrayList<String>();
+    private List<ServiceTO> services = new ArrayList<ServiceTO>();
 
-    public List<String> getServices() {
+    public List<ServiceTO> getServices() {
         return services;
     }
 
-    public void setServices(List<String> services) {
+    public void setServices(List<ServiceTO> services) {
         this.services = services;
     }
 }
