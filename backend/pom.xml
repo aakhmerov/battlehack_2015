@@ -39,7 +39,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>1.17.1</jersey.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
-        <httpclient.version>4.2.1</httpclient.version>
+        <httpclient.version>4.4.1</httpclient.version>
         <eclipse.jetty.version>8.1.14.v20131031</eclipse.jetty.version>
 
         <hazelcast.version>2.1.2</hazelcast.version>
