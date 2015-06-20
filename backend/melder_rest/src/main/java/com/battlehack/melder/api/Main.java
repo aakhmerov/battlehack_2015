@@ -31,7 +31,7 @@ public final class Main {
     private Main() {
     }
 
-    private static final int PORT = Integer.parseInt(System.getProperty("PORT"));
+    private static final int PORT = Integer.parseInt(System.getenv("PORT"));
     private static final String WEB_XML =
             "WEB-INF/web.xml";
 
