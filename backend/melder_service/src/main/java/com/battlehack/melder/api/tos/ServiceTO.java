@@ -8,6 +8,15 @@ public class ServiceTO {
     private String name;
     private String id;
     private String href;
+    private String bookingUrl;
+
+    public String getBookingUrl() {
+        return bookingUrl;
+    }
+
+    public void setBookingUrl(String bookingUrl) {
+        this.bookingUrl = bookingUrl;
+    }
 
     public String getName() {
         return name;

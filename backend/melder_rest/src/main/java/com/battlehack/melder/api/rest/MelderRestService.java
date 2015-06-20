@@ -31,7 +31,7 @@ public class MelderRestService {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/services")
     public ServicesTO getServices() {
-        ServicesTO result = this.amtService.getServices();
+        ServicesTO result = this.amtService.getFilteredServices();
         return result;
     }
 }
