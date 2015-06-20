@@ -17,18 +17,22 @@
 
 <button id="toggle-optional" class="btn btn-info hidden">Toggle Optional</button>
 <div id="optional-information" class="hidden">
-	<select class="optional" id="optional-date" multiple="multiple">
-  		<option value="monday" selected>Monday</option>
-  		<option value="tuesday" selected>Tuesday</option>
-  		<option value="wednesday" selected>Wednesday</option>
-  		<option value="thursday" selected>Thursday</option>
-  		<option value="friday" selected>Friday</option>
-  		<option value="saturday" selected>Saturday</option>
-	</select><br />
-	Time: <span>8:00</span>
-	<input class="optional" id="optional-time" type="text" class="span2" value="" data-slider-min="8" data-slider-max="20" data-slider-step="1" data-slider-value="[10,18]"/>
-	<span>20:00</span><br />
-	<select class="optional" id="optional-zipcode" multiple="multiple"></select>
+	<div class="days">
+		<div class="day btn btn-success" data-day="monday">Monday</div>
+		<div class="day btn btn-success" data-day="monday">Tuesday</div>
+		<div class="day btn btn-success" data-day="monday">Wednesday</div>
+		<div class="day btn btn-success" data-day="monday">Thursday</div>
+		<div class="day btn btn-success" data-day="monday">Friday</div>
+		<div class="day btn btn-success" data-day="monday">Saturday</div>
+	</div>
+	<div class="time">
+		Time: <span>8:00</span>
+		<input class="optional" id="optional-time" type="text" class="span2" value="" data-slider-min="8" data-slider-max="20" data-slider-step="1" data-slider-value="[10,18]"/>
+		<span>20:00</span>
+	</div>
+	<div class="zipcodes">
+		<select class="optional" id="optional-zipcode" multiple="multiple"></select>
+	</div>
 </div>
 
 <div id="submit-container" class="hidden">

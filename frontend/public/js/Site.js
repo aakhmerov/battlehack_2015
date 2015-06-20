@@ -12,6 +12,7 @@ define([
 	ResultView
 ) {
 	function Site() {
+		console.log('Site: init');
 		this.currentPage = undefined;
 		this.router = new Router();
 		this.router.on('route:welcome', this.pageChange.bind(this, 'welcome'));
@@ -21,7 +22,7 @@ define([
 	
 	Site.prototype.pageChange = function(page, parameter) {
 		
-		console.info('Site: page change!', page, parameter);
+		console.log('Site: page change!', page, parameter);
 		
 		if (this.currentPage !== undefined) {
 			console.warn('Site: killing %s', this.currentPage.name);
@@ -37,7 +38,7 @@ define([
 		}
 		else if(page === 'result') {
 			this.currentPage = new ResultView({
-				resultID: parameter
+				userToken: parameter
 			});
 		}
 		else {
@@ -48,6 +49,7 @@ define([
 	};
 	
 	Site.prototype.render = function() {
+		console.log('Site: render');
 		this.currentPage.render();
 	};
 	

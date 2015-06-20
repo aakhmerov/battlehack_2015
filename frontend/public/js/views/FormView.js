@@ -25,6 +25,7 @@ define([
 			'change #services-list': 'serviceSelected',
 			'click button#toggle-optional': 'toggleOptional',
 			'click #submit-container': 'submitForm',
+			'click .day': 'changeDay',
 			'blur .required': 'requiredFieldChanged',
 			'blur .optional': 'optionalFieldChanged'
 		},
@@ -34,6 +35,7 @@ define([
 			this.template = template;
 			this.services = JSON.parse(services).services;
 			this.model = new FormModel();
+			this.model.on('sync', this.success.bind(this));
 		},
 		getTemplateData: function() {
 			var data = {
@@ -58,10 +60,6 @@ define([
 				placeholder: 'Select a service',
 				allowClear: true
 			});	
-					
-			this.$el.find('#optional-date').select2({
-				placeholder: 'Select preferred days'
-			});
 					
 			this.$el.find('#optional-zipcode').select2({
 				placeholder: 'Zipcodes',
@@ -100,6 +98,7 @@ define([
 			this.$el.find('#optional-information').toggleClass('hidden');
 		},
 		submitForm: function(e) {
+			console.log('FormView: submitForm');
 			var optionalDay = this.$el.find('#optional-date').val(),
 				optionalTime = this.$el.find('#optional-time').val(),
 				optionalZipcodes = this.$el.find('#optional-zipcode').val();
@@ -115,23 +114,8 @@ define([
 			this.model.set('zipCodes', optionalZipcodes);
 			
 			console.log(this.model.toJSON());
-
-			// FAKE REDIRECT FOR TESTING
-			location.hash = '#result/123';
 			
-//			this.model.save({
-//				success: this.success.bind(this),
-//				error: this.error.bind(this)
-//			});
-
-//			$.ajax({
-//			     url: this.model.url,
-//			     dataType: 'jsonp',
-//				 data: this.model.toJSON(),
-//				 type: 'POST',
-//			     success: this.success.bind(this),
-//			     error: this.error.bind(this)     
-//			});
+			this.model.save();
 		},
 		requiredFieldChanged: function(e) {
 			
@@ -160,11 +144,22 @@ define([
 			
 			this.model.set(e.target.name, e.target.value);
 		},
-		error: function(model, response, options) {
-			console.warn(this.name + ': Error sending data!', model, response, options);
+		changeDay: function(e) {
+			console.log('FormView: changeDay');
+			var $element = $(e.target);
+			
+			if ($element.hasClass('btn-success')) {
+				$element.addClass('btn-default').removeClass('btn-success');
+			}
+			else {
+				$element.removeClass('btn-default').addClass('btn-success');
+			}
 		},
 		success: function(model, response, options) {
 			console.info(this.name + ': Success!', model, response, options);
+//			TODO: Parse user ID and update hash
+//			FAKE REDIRECT FOR TESTING
+//			location.hash = '#result/' + response.userToken;
 		}
 	});
 });
