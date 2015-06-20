@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -34,6 +36,8 @@ public class AmtService {
     private static final String DATE = "datum";
     private static final String NEXT_SELECTOR = ".next a";
     private static final String TAG_PAGE = "tag.php";
+    private static final String TERMIN_BASE = "https://service.berlin.de/terminvereinbarung/termin/";
+    private static final String TIME = "zeit";
 
     /**
      * Connect to the website providing list of available services
@@ -103,34 +107,24 @@ public class AmtService {
     }
 
     /**
-     * Obtain list of bookable appointments for specified service
+     * Obtain list of bookable appointment dates for specified service
      * @param service - service descriptor that has to be inspected for booking possibilities
      *                bookingUrl is expected to be present and not null
      * @return
      */
-    public PossibleBookingsTO getPossibleBookings(ServiceTO service) {
+    public PossibleBookingsTO getPossibleBookingDates(ServiceTO service) {
         PossibleBookingsTO result = new PossibleBookingsTO();
         try {
-
             boolean allProcessed = false;
-
             Document doc = Jsoup.connect(service.getBookingUrl()).get();
-            Elements bookable = getBookableOnNextPage(doc);
+            Elements bookable = getBookable(doc);
             while (!allProcessed && doc != null) {
                 if (bookable != null && bookable.size() > 0) {
                     for (Element bookableDate : bookable) {
                         String href = bookableDate.attr("href");
-                        URI url = new URI(BASE_URL + "/" + href);
-                        List<NameValuePair> params = URLEncodedUtils.parse(url,"UTF-8");
-                        String date = null;
-                        for (NameValuePair pair : params) {
-                            if (DATE.equalsIgnoreCase(pair.getName())) {
-                                date = pair.getValue();
-                                break;
-                            }
-                        }
+                        String date = getAttribute(href, DATE);
                         PossibleBookingTO toAdd = new PossibleBookingTO();
-                        toAdd.setUrl(href);
+                        toAdd.setDateUrl(href);
                         toAdd.setDate(date);
                         result.getPossibleBookings().add(toAdd);
                     }
@@ -139,18 +133,116 @@ public class AmtService {
                     allProcessed = true;
                 } else {
                     doc = getNextPage(doc);
-                    bookable = getBookableOnNextPage(doc);
+                    bookable = getBookable(doc);
                 }
             }
-
-
-
         } catch (IOException e) {
             LOGGER.error("can't get booking calendar", e);
-        } catch (URISyntaxException e) {
-            LOGGER.error("can't compose URI",e);
         }
         return result;
+    }
+
+    /**
+     * utility method to fetch attribute value from href based on attribute name and href.
+     * both value are expected to be not null
+     * TODO: move to helper class
+     * @param href
+     * @param parameterName
+     * @return
+     */
+    private String getAttribute(String href, String parameterName) {
+        String result = null;
+        URI url = null;
+        try {
+            url = new URI(BASE_URL + "/" + href);
+            List<NameValuePair> params = URLEncodedUtils.parse(url,"UTF-8");
+            for (NameValuePair pair : params) {
+                if (parameterName.equalsIgnoreCase(pair.getName())) {
+                    result = pair.getValue();
+                    break;
+                }
+            }
+        } catch (URISyntaxException e) {
+            LOGGER.error("cant parse url", e);
+        }
+
+        return result;
+    }
+
+
+    /**
+     * Based on possible booking dates fetch list of actual bookings including place
+     * where booking is going to be held and time information
+     *
+     * for each date open page with places and parse it, create clones of initial object for
+     * every time and place combination
+     *
+     * @param bookingDates - prefetched list of possible booking dates, this list is expected to
+     *                     have date and url filled in
+     * @return
+     */
+    public PossibleBookingsTO getPossibleBookings(PossibleBookingsTO bookingDates){
+        PossibleBookingsTO result = new PossibleBookingsTO();
+
+        for (PossibleBookingTO bookingInitial : bookingDates.getPossibleBookings()) {
+            Document doc = null;
+            try {
+                doc = Jsoup.connect(TERMIN_BASE + bookingInitial.getDateUrl()).get();
+                result.getPossibleBookings().addAll(getPreciseBookings(doc, bookingInitial));
+            } catch (IOException e) {
+                LOGGER.error("can't get bookings on date [" + bookingInitial.getDate() + "]", e);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Utility method to parse exact bookings from list of available ones and add separate
+     * representation to the base object
+     *
+     * @param doc - document representing page that has list of real available bookings
+     * @param bookingInitial - initial object with booking data - date and url for date specifics
+     * @return list of really available bookings
+     */
+    private Collection<? extends PossibleBookingTO> getPreciseBookings(Document doc, PossibleBookingTO bookingInitial) {
+        List <PossibleBookingTO> result = new ArrayList<PossibleBookingTO>();
+        for (Element bookable : getBookableRows(doc)) {
+            PossibleBookingTO toAdd = new PossibleBookingTO();
+            toAdd.setBasics(bookingInitial);
+            toAdd.setBookingUrl(bookable.attr("href"));
+            toAdd.setPlaceName(bookable.text());
+            toAdd.setPlaceAddress(fetchAddress(bookable.attr("title")));
+            toAdd.setBookingTime(getAttribute(toAdd.getBookingUrl(), TIME));
+            result.add(toAdd);
+        }
+        return result;
+    }
+
+    /**
+     * Select all elements from the booking tables that are available as
+     * individual bookings
+     *
+     * @param doc
+     * @return
+     */
+    private Elements getBookableRows(Document doc) {
+        Elements result = null;
+        if (doc != null) {
+            result = doc.select(".frei a");
+        }
+        return result;
+    }
+
+    /**
+     * Utility method to parse address from the title attribute
+     *
+     * TODO: move to helper class
+     *
+     * @param title
+     * @return
+     */
+    private String fetchAddress(String title) {
+        return title.split("Adresse:")[1];
     }
 
     /**
@@ -208,7 +300,7 @@ public class AmtService {
      * @param doc
      * @return
      */
-    private Elements getBookableOnNextPage(Document doc) {
+    private Elements getBookable(Document doc) {
         Elements result = null;
         if (doc != null) {
             result = doc.select(".buchbar a");
