@@ -10,7 +10,7 @@ define([
 			'result/:resultId': 'result'
 		},
 		initialize: function() {
-			console.info('Router: init');
+			console.log('Router: init');
 		}
 	});
 });

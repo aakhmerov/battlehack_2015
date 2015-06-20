@@ -1,3 +1,12 @@
 #services select {
 	width: 50%;
 }
+
+.pacman {
+	background-image: url('/images/melder_animated_62_60px.gif');
+	background-repeat: no-repeat;
+	height: 62px;
+	padding-left: 80px;
+	line-height: 55px;
+	font-size: 40px;
+}

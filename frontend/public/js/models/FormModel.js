@@ -1,13 +1,15 @@
 define([
 	'underscore',
 	'Backbone'
-], function(
+], function DefineFormModel(
 	_,
 	Backbone
 ) {
 	return Backbone.Model.extend({
 		url: '/melder-api/services/amt/bookings/',
+		name: 'FormModel',
 		requiredDataComplete: function() {
+			console.log(this.name + ': requiredDataComplete');
 			var firstName = this.get('firstName'),
 				lastName = this.get('lastName'),
 				email = this.get('email'),

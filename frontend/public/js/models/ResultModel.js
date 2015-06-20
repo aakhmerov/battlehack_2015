@@ -4,6 +4,11 @@ define([
 	Backbone
 ) {
 	return Backbone.Model.extend({
-		url: '/test'
+		url: '/melder-api/services/amt/bookings/',
+		name: 'ResultModel',
+		initialize: function(userToken) {
+			console.log(this.name + ': init');
+			this.url += userToken.toString();
+		}
 	});
 });
