@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* Main
+web: java $JAVA_OPTS -cp backend/melder_rest/target/classes:backend/melder_rest/target/dependency/* Main
