@@ -5,8 +5,7 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath*:domainContext.xml"/>
-    <import resource="classpath*:infrastructure.xml"/>
+    <import resource="classpath:domainContext-test.xml"/>
     
     <context:component-scan base-package="com.battlehack.melder.api.service"/>
 
