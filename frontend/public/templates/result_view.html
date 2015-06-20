@@ -1,6 +1,17 @@
-{{#hasResults}}
-	RESULTS HERE
-{{/hasResults}}
-{{^hasResults}}
-	NO RESULTS YET
-{{/hasResults}}
+<div class="table-responsive">
+	<span>Results:</span>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Book?</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{{rows}}}
+		</tbody>
+	</table>
+</div>
