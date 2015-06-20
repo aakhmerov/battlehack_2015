@@ -28,15 +28,31 @@ public class AmtServiceTest {
     }
 
     @Test
-    public void testGetPossibleBookings() throws Exception {
+    public void testGetPossibleBookingDates() throws Exception {
         ServicesTO services = amtService.loadCachedServices();
-        PossibleBookingsTO bookings = amtService.getPossibleBookings(services.getServices().get(0));
+        PossibleBookingsTO bookings = amtService.getPossibleBookingDates(services.getServices().get(0));
         assertThat(bookings,is(notNullValue()));
         assertThat(bookings.getPossibleBookings(),is(notNullValue()));
         assertThat(bookings.getPossibleBookings().size(),is(greaterThan(3)));
         for (PossibleBookingTO booking : bookings.getPossibleBookings()) {
             assertThat(booking.getDate(),is(notNullValue()));
-            assertThat(booking.getUrl(),is(notNullValue()));
+            assertThat(booking.getDateUrl(),is(notNullValue()));
+        }
+    }
+
+    @Test
+    public void testGetPossibleBookings() throws Exception {
+        ServicesTO services = amtService.loadCachedServices();
+        PossibleBookingsTO bookingDates = amtService.getPossibleBookingDates(services.getServices().get(0));
+        PossibleBookingsTO bookings = amtService.getPossibleBookings(bookingDates);
+        assertThat(bookings,is(notNullValue()));
+        assertThat(bookings.getPossibleBookings(),is(notNullValue()));
+        assertThat(bookings.getPossibleBookings().size(),is(greaterThan(3)));
+        for (PossibleBookingTO booking : bookings.getPossibleBookings()) {
+            assertThat(booking.getDate(),is(notNullValue()));
+            assertThat(booking.getDateUrl(),is(notNullValue()));
+            assertThat(booking.getBookingUrl(),is(notNullValue()));
+            assertThat(booking.getBookingTime(),is(notNullValue()));
         }
     }
 }
