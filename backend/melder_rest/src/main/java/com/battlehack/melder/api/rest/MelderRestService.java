@@ -55,6 +55,14 @@ public class MelderRestService {
         return amtService.fetchBookings(userDataTO);
     }
 
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("/bookings/fetch")
+    public UserDataTO fetchBookingsPUT(UserDataTO userDataTO) {
+        return this.fetchBookings(userDataTO);
+    }
+
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -68,5 +76,13 @@ public class MelderRestService {
         }
         PossibleBookingsTO result = this.amtService.getFetchedBookings(userDataTO);
         return result;
+    }
+
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("/bookings")
+    public PossibleBookingsTO getBookingsPut(UserDataTO userDataTO) {
+        return this.getBookings(userDataTO);
     }
 }
