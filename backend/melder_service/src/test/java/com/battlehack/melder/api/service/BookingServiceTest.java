@@ -30,10 +30,11 @@ public class BookingServiceTest {
     public void testPerformBooking() throws Exception {
         PossibleBookingsTO bookings = amtService.getBookings("158142");
         UserDataTO user = new UserDataTO();
-        user.setEmail("g5617956@trbvm.com");
+        user.setEmail("g5619909@trbvm.com");
         user.setFirstName("Test");
         user.setPhone("01631737743");
         user.setLastName("Test");
+        user.setServiceId("158142");
 
         BookingConfirmationTO result = bookingService.performBooking(bookings.getPossibleBookings().get(10),user);
         assertThat(result,is(notNullValue()));

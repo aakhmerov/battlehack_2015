@@ -10,6 +10,7 @@ import java.util.List;
 @XmlRootElement
 public class PossibleBookingsTO {
     private List<PossibleBookingTO> possibleBookings = new ArrayList<PossibleBookingTO>();
+    private String serviceId;
 
     public List<PossibleBookingTO> getPossibleBookings() {
         return possibleBookings;
@@ -17,5 +18,13 @@ public class PossibleBookingsTO {
 
     public void setPossibleBookings(List<PossibleBookingTO> possibleBookings) {
         this.possibleBookings = possibleBookings;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getServiceId() {
+        return serviceId;
     }
 }

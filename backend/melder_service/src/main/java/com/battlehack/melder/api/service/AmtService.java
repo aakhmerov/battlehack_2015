@@ -140,6 +140,7 @@ public class AmtService {
      */
     public PossibleBookingsTO getPossibleBookingDates(ServiceTO service) {
         PossibleBookingsTO result = new PossibleBookingsTO();
+        result.setServiceId(service.getId());
         try {
             boolean allProcessed = false;
             Document doc = Jsoup.connect(service.getBookingUrl()).timeout(CONNECTION_TIMEOUT).get();
@@ -152,6 +153,7 @@ public class AmtService {
                         PossibleBookingTO toAdd = new PossibleBookingTO();
                         toAdd.setDateUrl(href);
                         toAdd.setDate(date);
+                        toAdd.setServiceId(service.getId());
                         result.getPossibleBookings().add(toAdd);
                     }
                 }

@@ -94,6 +94,7 @@ public class BookingService {
             result.setDate(addressData.select(".block-item div").get(2).html());
             result.setAddress(addressData.select(".block-item div").get(1).html());
             result.setPlace(addressData.select(".block-item div").get(0).html());
+            result.setService(possibleBooking.getServiceId());
 //            bookingForm = Jsoup.connect(BOOKING_BASE + possibleBooking.getBookingUrl())
 //                    .method(Connection.Method.GET)
 //                    .execute();
