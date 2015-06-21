@@ -1,6 +1,7 @@
 package com.battlehack.melder.api.service;
 
-import com.battlehack.melder.api.tos.BookingConfirmationTO;
+import com.battlehack.melder.api.tos.appointment.AppointmentRequestTO;
+import com.battlehack.melder.api.tos.appointment.BookingConfirmationTO;
 import com.battlehack.melder.api.tos.PossibleBookingTO;
 import com.battlehack.melder.api.tos.UserDataTO;
 import com.gargoylesoftware.htmlunit.*;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +28,6 @@ import java.util.List;
 public class BookingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingService.class);
     private static final String BOOKING_BASE = "https://service.berlin.de/terminvereinbarung/termin/";
-    private static final String CONFIRM_URL = "https://service.berlin.de/terminvereinbarung/termin/bestaetigung.php";
 
     public BookingConfirmationTO performBooking (PossibleBookingTO possibleBooking,UserDataTO user) {
         BookingConfirmationTO result = new BookingConfirmationTO ();
@@ -95,44 +94,6 @@ public class BookingService {
             result.setAddress(addressData.select(".block-item div").get(1).html());
             result.setPlace(addressData.select(".block-item div").get(0).html());
             result.setService(possibleBooking.getServiceId());
-//            bookingForm = Jsoup.connect(BOOKING_BASE + possibleBooking.getBookingUrl())
-//                    .method(Connection.Method.GET)
-//                    .execute();
-//            Document bookingPage = bookingForm.parse();
-////            Nachname:Omer Oman
-////            EMail:g5608772@trbvm.com
-////            Anmerkung:
-////            Datum:2015-07-20
-////            Uhrzeit:12:45:00
-////              g5615338@trbvm.com
-////            SID:560
-////            OID:33230
-////            OIDListe:33230,27922
-////            buergerID:122057
-////            slots:1
-////            herkunft:http://service.berlin.de/dienstleistung/326423/
-////            anliegen[]:326423
-////            emailpruefen:1
-////            gelesen:1
-//            Document document = Jsoup.connect(CONFIRM_URL)
-//                    .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.125 Safari/537.36")
-//                    .referrer(BOOKING_BASE + possibleBooking.getBookingUrl())
-//                    .data("Nachname", user.getFirstName() + " " + user.getLastName())
-//                    .data("EMail", user.getEmail())
-//                    .data("Datum", possibleBooking.getDate())
-//                    .data("Uhrzeit", possibleBooking.getBookingTime())
-//                    .data("SID", getSid(bookingPage))
-//                    .data("OID", getOid(bookingPage))
-//                    .data("OIDListe", getOids(bookingPage))
-//                    .data("buergerID", getBuergerID(bookingPage))
-//                    .data("slots", getSlots(bookingPage))
-//                    .data("herkunft", getOrigin(bookingPage))
-//                    .data("anliegen", getAnliegen(bookingPage))
-//                    .data("emailpruefen", "1")
-//                    .data("gelesen","1")
-//                    .cookies(bookingForm.cookies()).cookie("POPUPCHECK","1434887722494")
-//                    .post();
-//            System.out.println(document);
         } catch (IOException e) {
             LOGGER.error("cant open booking page");
         }
@@ -140,31 +101,34 @@ public class BookingService {
         return result;
     }
 
-    private String getAnliegen(Document bookingPage) {
-        return bookingPage.select("input[name=anliegen[]]").attr("value");
+    /**
+     * Wrapper around performing real booking of appointment for user.
+     * In pilot version performs stubbing of data
+     * TODO: uncomment invocation of real methods to feel the FORCE
+     * @param requestTO
+     * @return
+     */
+    public BookingConfirmationTO performBooking(AppointmentRequestTO requestTO) {
+        BookingConfirmationTO result = stubResult(requestTO);
+
+        return result;
     }
 
-    private String getOrigin(Document bookingPage) {
-        return bookingPage.select("input[name=herkunft]").attr("value");
-    }
-
-    private String getSlots(Document bookingPage) {
-        return bookingPage.select("input[name=slots]").attr("value");
-    }
-
-    private String getBuergerID(Document bookingPage) {
-        return bookingPage.select("input[name=buergerID]").attr("value");
-    }
-
-    private String getOids(Document bookingPage) {
-        return bookingPage.select("input[name=OIDListe]").attr("value");
-    }
-
-    private String getOid(Document bookingPage) {
-        return bookingPage.select("input[name=OID]").attr("value");
-    }
-
-    private String getSid(Document bookingForm) {
-        return bookingForm.select("input[name=SID]").attr("value");
+    /**
+     *
+     * @param requestTO
+     * @return
+     */
+    private BookingConfirmationTO stubResult(AppointmentRequestTO requestTO) {
+        BookingConfirmationTO result = new BookingConfirmationTO();
+        result.setAddress("Test Address");
+        result.setService(requestTO.getDesiredBooking().getServiceId());
+        result.setName(requestTO.getUser().getFirstName() + requestTO.getUser().getLastName());
+        result.setPlace("Test Place");
+        result.setCancelCode("test cancel code");
+        result.setDate(requestTO.getDesiredBooking().getDate());
+        result.setNumber("test number");
+        result.setPhone(requestTO.getUser().getPhone());
+        return result;
     }
 }

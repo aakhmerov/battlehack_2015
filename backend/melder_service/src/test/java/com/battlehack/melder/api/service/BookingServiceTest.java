@@ -1,6 +1,6 @@
 package com.battlehack.melder.api.service;
 
-import com.battlehack.melder.api.tos.BookingConfirmationTO;
+import com.battlehack.melder.api.tos.appointment.BookingConfirmationTO;
 import com.battlehack.melder.api.tos.PossibleBookingsTO;
 import com.battlehack.melder.api.tos.UserDataTO;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,8 +1,11 @@
-package com.battlehack.melder.api.tos;
+package com.battlehack.melder.api.tos.appointment;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by aakhmerov on 20.06.15.
  */
+@XmlRootElement
 public class BookingConfirmationTO {
     private String cancelCode;
     private String number;
@@ -13,7 +16,15 @@ public class BookingConfirmationTO {
     private String email;
     private String name;
     private String phone;
+    private Long userId;
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getName() {
         return name;
