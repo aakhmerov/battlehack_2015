@@ -49,6 +49,7 @@ public class AmtService {
 
     private static final ConcurrentHashMap <Long, PossibleBookingsTO> userBookings = new ConcurrentHashMap<Long, PossibleBookingsTO>();
     private static final ConcurrentHashMap <Long, String> userBookingsStarted = new ConcurrentHashMap<Long, String>();
+    private static final int BOOKINGS_EXPIRY_MINUTES = 5;
     private List <BookingsChecker> checkers = new ArrayList<BookingsChecker>();
 
     private static ServicesTO LOADED_SERVICES;
@@ -393,9 +394,9 @@ public class AmtService {
      * @return
      */
     private boolean isExpired(PossibleBookingsTO possibleBookingsTO) {
-        int minutes = Minutes.minutesBetween(new DateTime(),possibleBookingsTO.getFetchTimestamp()).getMinutes();
+        int minutes = Minutes.minutesBetween(possibleBookingsTO.getFetchTimestamp(),new DateTime()).getMinutes();
         LOGGER.info("Minutes beetween : "  + minutes);
-        return minutes < 5;
+        return minutes > BOOKINGS_EXPIRY_MINUTES;
     }
 
     /**
