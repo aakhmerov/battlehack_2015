@@ -145,5 +145,27 @@ white-space: normal !important;
 	height: 62px;
 	padding-left: 80px;
 	line-height: 55px;
-	font-size: 40px;
+	font-size: 30px;
+}
+
+div.pacman {
+width: 70%;
+margin:40px 0px;
+
+color:#008cba !important;
+
+}
+
+div#intro {
+display:block;
+width:800px;
+height:600px;
+margin:0px;
+
+}
+
+button#toggle-optional {
+margin:40px 0px !important;
+background-color:#ffffff !important;
+color:#008cba !important;
 }
