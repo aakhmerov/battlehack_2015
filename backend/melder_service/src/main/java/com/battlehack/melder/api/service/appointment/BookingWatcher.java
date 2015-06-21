@@ -24,8 +24,8 @@ import java.util.List;
 public class BookingWatcher extends Thread {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingWatcher.class);
 //  five minutes
-    private static final long SLEEP_TIME = 1000 * 60 * 5;
-    private static final long MINUTE = 1000 * 40 * 1;
+    private static final long SLEEP_TIME = 1000 * 60 * 1;
+    private static final long MINUTE = 1000 * 10 * 1;
     private static final String FROM = "melder@melder.com";
     private static final String API_USER = "";
     private static final String API_KEY = "";
