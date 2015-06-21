@@ -1,1 +1,30 @@
-<h1>Booking Confirmation</h1>
+<h1>Booking Confirmed!</h1>
+<div id="booking">
+	<p class="headline">Your Appointment</p>
+	<div class="info">
+		<span class="left">NAME</span>
+		<span class="right">{{name}}</span>
+	</div>
+	<div class="info">
+		<span class="left">DATE</span>
+		<span class="right">{{time}} - {{date}}</span>
+	</div>
+	<div class="info">
+		<span class="left">WAITING NO.</span>
+		<span class="waitingNumber right">#{{number}}</span>
+	</div>
+	<div class="info">
+		<span class="left">AT</span>
+		<span class="right">
+			{{placeName}}<br />
+			{{placeAddress}}
+		</span>
+	</div>
+	<div class="info">
+		<button class="btn btn-danger">Cancel</button>
+	</div>
+</div>
+<div id="payment">
+	<span>You will have to pay a fee of <strong>$100</strong></span>
+	<button class="btn btn-primary">Pay with paypal</button>
+</div>

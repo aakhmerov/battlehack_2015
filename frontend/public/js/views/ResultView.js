@@ -114,10 +114,11 @@ define([
 				error: this.bookingError.bind(this)
 			});			
 		},
-		bookingSuccess: function(response) {
+		bookingSuccess: function(model, response) {
 			console.log(this.name + ': bookingSuccess!', response);
+			location.hash = '#booking/' + JSON.stringify(response);
 		},
-		bookingError: function(response) {
+		bookingError: function(model, response) {
 			console.log(this.name + ': bookingError!', response);
 		}
 		
