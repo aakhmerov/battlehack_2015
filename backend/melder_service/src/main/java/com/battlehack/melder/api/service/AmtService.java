@@ -392,7 +392,9 @@ public class AmtService {
      * @return
      */
     private boolean isExpired(PossibleBookingsTO possibleBookingsTO) {
-        return Minutes.minutesBetween(possibleBookingsTO.getFetchTimestamp(),new DateTime()).getMinutes() < 5;
+        int minutes = Minutes.minutesBetween(new DateTime(),possibleBookingsTO.getFetchTimestamp()).getMinutes();
+        LOGGER.info("Minutes beetween : "  + minutes);
+        return minutes < 5;
     }
 
     /**
