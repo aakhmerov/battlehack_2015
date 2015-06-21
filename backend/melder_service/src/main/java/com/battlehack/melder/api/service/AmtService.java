@@ -1,18 +1,20 @@
 package com.battlehack.melder.api.service;
 
-import com.battlehack.melder.api.tos.PossibleBookingTO;
-import com.battlehack.melder.api.tos.PossibleBookingsTO;
-import com.battlehack.melder.api.tos.ServiceTO;
-import com.battlehack.melder.api.tos.ServicesTO;
+import com.battlehack.melder.api.domain.entities.MelderUser;
+import com.battlehack.melder.api.domain.repositories.MelderUserRepository;
+import com.battlehack.melder.api.tos.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by aakhmerov on 20.06.15.
@@ -43,7 +46,16 @@ public class AmtService {
 
     private static final HashMap <String, ServiceTO> PROVIDED_SERVICES = new HashMap<String, ServiceTO>();
     private static final int CONNECTION_TIMEOUT = 10000;
+
+    private static final ConcurrentHashMap <Long, PossibleBookingsTO> userBookings = new ConcurrentHashMap<Long, PossibleBookingsTO>();
+    private static final ConcurrentHashMap <Long, String> userBookingsStarted = new ConcurrentHashMap<Long, String>();
+    private static final int BOOKINGS_EXPIRY_MINUTES = 5;
+    private List <BookingsChecker> checkers = new ArrayList<BookingsChecker>();
+
     private static ServicesTO LOADED_SERVICES;
+
+    @Autowired
+    private MelderUserRepository melderUserRepository;
     /**
      * Connect to the website providing list of available services
      * and return them as a list
@@ -140,6 +152,7 @@ public class AmtService {
      */
     public PossibleBookingsTO getPossibleBookingDates(ServiceTO service) {
         PossibleBookingsTO result = new PossibleBookingsTO();
+        result.setServiceId(service.getId());
         try {
             boolean allProcessed = false;
             Document doc = Jsoup.connect(service.getBookingUrl()).timeout(CONNECTION_TIMEOUT).get();
@@ -152,6 +165,7 @@ public class AmtService {
                         PossibleBookingTO toAdd = new PossibleBookingTO();
                         toAdd.setDateUrl(href);
                         toAdd.setDate(date);
+                        toAdd.setServiceId(service.getId());
                         result.getPossibleBookings().add(toAdd);
                     }
                 }
@@ -337,6 +351,9 @@ public class AmtService {
     /**
      * Locate cached service based on id
      * pull all possible bookings for it
+     *
+     * NOTE: this is sequential request!
+     *
      * @param serviceId
      * @return
      */
@@ -345,5 +362,88 @@ public class AmtService {
         PossibleBookingsTO bookingDates = this.getPossibleBookingDates(service);
         PossibleBookingsTO bookings = this.getPossibleBookings(bookingDates);
         return bookings;
+    }
+
+    /**
+     * Method to perform bookings requests based on user's specific
+     * data for filtering
+     *
+     * @param userDataTO
+     * @return
+     */
+    public synchronized UserDataTO fetchBookings(UserDataTO userDataTO) {
+        MelderUser persistedMelderUser = null;
+        if (userDataTO.getId() != null) {
+            persistedMelderUser = melderUserRepository.findOne(userDataTO.getId());
+        }
+        if (persistedMelderUser == null) {
+            persistedMelderUser = melderUserRepository.save(new MelderUser());
+        }
+        userDataTO.setId(persistedMelderUser.getId());
+        if (userBookingsStarted.get(userDataTO.getId()) == null) {
+            if (userBookings.get(userDataTO.getId()) == null || isExpired(userBookings.get(userDataTO.getId()))) {
+                startChecker(userDataTO);
+            }
+        }
+        return userDataTO;
+    }
+
+    /**
+     *
+     * @param possibleBookingsTO
+     * @return
+     */
+    private boolean isExpired(PossibleBookingsTO possibleBookingsTO) {
+        int minutes = Minutes.minutesBetween(possibleBookingsTO.getFetchTimestamp(),new DateTime()).getMinutes();
+        LOGGER.info("Minutes beetween : "  + minutes);
+        return minutes > BOOKINGS_EXPIRY_MINUTES;
+    }
+
+    /**
+     * Start checker thread
+     * @param userDataTO
+     */
+    private synchronized void startChecker(UserDataTO userDataTO) {
+        BookingsChecker checker = new BookingsChecker ();
+        checker.setAmtService(this);
+        checker.setUser(userDataTO);
+        checker.start();
+        userBookingsStarted.put(userDataTO.getId(),"STARTED");
+        this.getCheckers().add(checker);
+    }
+
+
+    public List<BookingsChecker> getCheckers() {
+        return checkers;
+    }
+
+    public void setCheckers(List<BookingsChecker> checkers) {
+        this.checkers = checkers;
+    }
+
+    /**
+     * This method is invoked from executor thread in order to update cached user
+     * information with bookings
+     *
+     * @param bookings
+     * @param user
+     */
+    public void allocateBookings(PossibleBookingsTO bookings, UserDataTO user) {
+        userBookings.put(user.getId(),bookings);
+        userBookingsStarted.remove(user.getId());
+    }
+
+    /**
+     * Get bookings of user from fetched cache
+     * @param userDataTO
+     * @return
+     */
+    public PossibleBookingsTO getFetchedBookings(UserDataTO userDataTO) {
+        if (userDataTO.getId() != null) {
+            return userBookings.get(userDataTO.getId());
+        } else {
+            return null;
+        }
+
     }
 }

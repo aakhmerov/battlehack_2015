@@ -1,5 +1,7 @@
 package com.battlehack.melder.api.tos;
 
+import org.joda.time.DateTime;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @XmlRootElement
 public class PossibleBookingsTO {
     private List<PossibleBookingTO> possibleBookings = new ArrayList<PossibleBookingTO>();
+    private String serviceId;
+    private DateTime fetchTimestamp;
 
     public List<PossibleBookingTO> getPossibleBookings() {
         return possibleBookings;
@@ -17,5 +21,21 @@ public class PossibleBookingsTO {
 
     public void setPossibleBookings(List<PossibleBookingTO> possibleBookings) {
         this.possibleBookings = possibleBookings;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setFetchTimestamp(DateTime fetchTimestamp) {
+        this.fetchTimestamp = fetchTimestamp;
+    }
+
+    public DateTime getFetchTimestamp() {
+        return fetchTimestamp;
     }
 }

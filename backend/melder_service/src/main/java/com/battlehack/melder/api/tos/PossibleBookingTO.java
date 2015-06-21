@@ -10,8 +10,7 @@ public class PossibleBookingTO {
     private String dateUrl;
     private String bookingUrl;
     private String bookingTime;
-
-
+    private String serviceId;
 
 
     public String getDate() {
@@ -65,5 +64,14 @@ public class PossibleBookingTO {
     public void setBasics(PossibleBookingTO bookingInitial) {
         this.setDateUrl(bookingInitial.getDateUrl());
         this.setDate(bookingInitial.getDate());
+        this.setServiceId(bookingInitial.getServiceId());
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 }
