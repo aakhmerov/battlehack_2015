@@ -1,12 +1,10 @@
 package com.battlehack.melder.api.service;
 
-import com.battlehack.melder.api.tos.PossibleBookingTO;
-import com.battlehack.melder.api.tos.PossibleBookingsTO;
-import com.battlehack.melder.api.tos.ServiceTO;
-import com.battlehack.melder.api.tos.ServicesTO;
+import com.battlehack.melder.api.tos.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,6 +41,24 @@ public class AmtService {
 
     private static final HashMap <String, ServiceTO> PROVIDED_SERVICES = new HashMap<String, ServiceTO>();
     private static final int CONNECTION_TIMEOUT = 10000;
+    //  "monday","tuesday","wednesday","thursday","friday","saturday"
+    private static HashMap <String,Integer> daysMap = new HashMap<String, Integer>();
+    private static final String MONDAY = "monday";
+    private static final String TUE = "tuesday";
+    private static final String WED = "wednesday";
+    private static final String THU = "thursday";
+    private static final String FRI = "friday";
+    private static final String SAT = "saturday";
+
+    static {
+        daysMap.put(MONDAY,1);
+        daysMap.put(TUE,2);
+        daysMap.put(WED,3);
+        daysMap.put(THU,4);
+        daysMap.put(FRI,5);
+        daysMap.put(SAT,6);
+    }
+
     private static ServicesTO LOADED_SERVICES;
     /**
      * Connect to the website providing list of available services
@@ -347,5 +363,50 @@ public class AmtService {
         PossibleBookingsTO bookingDates = this.getPossibleBookingDates(service);
         PossibleBookingsTO bookings = this.getPossibleBookings(bookingDates);
         return bookings;
+    }
+
+    /**
+     * Method to perform bookings requests based on user's specific
+     * data for filtering
+     *
+     * @param userDataTO
+     * @return
+     */
+    public PossibleBookingsTO getBookings(UserDataTO userDataTO) {
+        ServiceTO service = locateService(userDataTO.getServiceId());
+        PossibleBookingsTO bookingDates = this.getPossibleBookingDates(service);
+        bookingDates = filterDatesForUser(userDataTO,bookingDates);
+        PossibleBookingsTO bookings = this.getPossibleBookings(bookingDates);
+        return bookings;
+    }
+
+    /**
+     * Filter dates that are going to be scanned for individual bookings based on user's
+     * data specified for filtering
+     *
+     * TODO: move to helper class
+     *
+     * @param userDataTO
+     * @param bookingDates
+     * @return
+     */
+    private PossibleBookingsTO filterDatesForUser(UserDataTO userDataTO, PossibleBookingsTO bookingDates) {
+        PossibleBookingsTO result = new PossibleBookingsTO();
+        for (PossibleBookingTO possibleDate : bookingDates.getPossibleBookings()) {
+            List <Integer> mappedDays = mapDays(userDataTO.getDays());
+            if (mappedDays.contains(new DateTime(possibleDate.getDate()).getDayOfWeek())) {
+                result.getPossibleBookings().add(possibleDate);
+                result.setServiceId(bookingDates.getServiceId());
+            }
+        }
+        return result;
+    }
+
+    private List<Integer> mapDays(List<String> days) {
+        List<Integer> result = new ArrayList<Integer>();
+        for (String day : days) {
+            result.add(daysMap.get(day));
+        }
+        return result;
     }
 }

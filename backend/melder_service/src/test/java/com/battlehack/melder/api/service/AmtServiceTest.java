@@ -3,15 +3,20 @@ package com.battlehack.melder.api.service;
 import com.battlehack.melder.api.tos.PossibleBookingTO;
 import com.battlehack.melder.api.tos.PossibleBookingsTO;
 import com.battlehack.melder.api.tos.ServicesTO;
+import com.battlehack.melder.api.tos.UserDataTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -68,5 +73,23 @@ public class AmtServiceTest {
             assertThat(booking.getBookingUrl(),is(notNullValue()));
             assertThat(booking.getBookingTime(),is(notNullValue()));
         }
+    }
+
+    @Test
+    public void testGetBookingsForUser() throws Exception {
+        PossibleBookingsTO bookings = amtService.getBookings("120335");
+        assertThat(bookings,is(notNullValue()));
+        assertThat(bookings.getPossibleBookings(),is(notNullValue()));
+        assertThat(bookings.getPossibleBookings().size(),is(greaterThan(0)));
+        UserDataTO user = new UserDataTO();
+        List<String> days = new ArrayList<String>();
+        days.add("monday");
+        user.setDays(days);
+        user.setServiceId("120335");
+        PossibleBookingsTO fineBookings = amtService.getBookings(user);
+        assertThat(fineBookings,is(notNullValue()));
+        assertThat(fineBookings.getPossibleBookings(),is(notNullValue()));
+        assertThat(fineBookings.getPossibleBookings().size(),is(greaterThan(0)));
+        assertThat(fineBookings.getPossibleBookings().size(),is(lessThan(bookings.getPossibleBookings().size())));
     }
 }

@@ -59,7 +59,7 @@ public class MelderRestService {
         } catch (JsonProcessingException e) {
             LOGGER.error("cant serialize user",e);
         }
-        PossibleBookingsTO result = this.amtService.getBookings(userDataTO.getServiceId());
+        PossibleBookingsTO result = this.amtService.getBookings(userDataTO);
         return result;
     }
 }
