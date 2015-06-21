@@ -1,10 +1,10 @@
 #booking,
 #payment {
-	width: 50%;
-	border: 2px solid #008CBA;
-	border-radius: 5px;
-	padding: 10px;
-	margin-bottom: 20px;
+	border: 1px solid #cccccc !important;
+    border-radius: 2px !important;
+    margin-bottom: 40px !important;
+    padding: 10px;
+    width: 50%;
 }
 
 #booking .headline {
@@ -18,6 +18,8 @@
 
 #booking .info {
 	margin-bottom: 10px;
+	display:block;
+	height:50px;
 }
 
 #booking .waitingNumber {
@@ -25,11 +27,19 @@
 }
 
 #booking .left {
-	font-weight: bold;
+	font-weight: normal;
+	width:120px;
+	display:block;
+	float:left;
 }
 
 #booking .right {
-	float: right;
+	font-weight: bold;
+	text-align: left;
+	display:block;
+	width:200px;
+	float:left;
+	color:#008cba;
 }
 
 #payment span {
@@ -39,3 +49,8 @@
 #payment button {
 	
 }
+
+
+
+
+
