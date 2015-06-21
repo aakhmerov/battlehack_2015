@@ -37,7 +37,7 @@ public class AppointmentServiceTest {
         testUser.setPhone("+4917687825440");
         testUser.setEmail("test@test.com");
         List<String> daysList = new ArrayList<String>();
-        daysList.add("monday");
+        daysList.add("friday");
         testUser.setDays(daysList);
         testUser.setServiceId("158142");
         testUser.setId(4l);

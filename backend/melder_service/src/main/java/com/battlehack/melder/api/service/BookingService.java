@@ -135,13 +135,13 @@ public class BookingService {
      */
     private BookingConfirmationTO stubResult(AppointmentRequestTO requestTO) {
         BookingConfirmationTO result = new BookingConfirmationTO();
-        result.setAddress("Test Address");
+        result.setAddress(requestTO.getDesiredBooking().getPlaceAddress());
         result.setService(requestTO.getDesiredBooking().getServiceId());
-        result.setName(requestTO.getUser().getFirstName() + requestTO.getUser().getLastName());
-        result.setPlace("Test Place");
-        result.setCancelCode("test cancel code");
+        result.setName(requestTO.getUser().getFirstName() + " " + requestTO.getUser().getLastName());
+        result.setPlace(requestTO.getDesiredBooking().getPlaceName());
+        result.setCancelCode("3bef");
         result.setDate(requestTO.getDesiredBooking().getDate());
-        result.setNumber("test number");
+        result.setNumber("53579");
         result.setPhone(requestTO.getUser().getPhone());
         result.setEmail(requestTO.getUser().getEmail());
         result.setService(requestTO.getDesiredBooking().getServiceId());
