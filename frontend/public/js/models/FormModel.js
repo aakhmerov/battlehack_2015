@@ -6,7 +6,7 @@ define([
 	Backbone
 ) {
 	return Backbone.Model.extend({
-		url: '/melder-api/services/amt/bookings/',
+		url: '/melder-api/services/amt/bookings/fetch',
 		name: 'FormModel',
 		requiredDataComplete: function() {
 			console.log(this.name + ': requiredDataComplete');

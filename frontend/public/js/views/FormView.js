@@ -99,7 +99,8 @@ define([
 		},
 		submitForm: function(e) {
 			console.log('FormView: submitForm');
-			var optionalDay = this.$el.find('#optional-date').val(),
+			var optionalDays = this.$el.find('.day.btn-success'),
+				days = [],
 				optionalTime = this.$el.find('#optional-time').val(),
 				optionalZipcodes = this.$el.find('#optional-zipcode').val();
 				
@@ -107,9 +108,13 @@ define([
 				return;
 			}
 				
-			console.log('FormView: submitForm');	
+			console.log('FormView: submitForm');
+			
+			days = _.map(optionalDays, function forEachDay(day) {
+				return $(day).data('day');
+			}, this);	
 				
-			this.model.set('days', optionalDay);
+			this.model.set('days', days);
 			this.model.set('time', optionalTime);
 			this.model.set('zipCodes', optionalZipcodes);
 			
@@ -156,10 +161,8 @@ define([
 			}
 		},
 		success: function(model, response, options) {
-			console.info(this.name + ': Success!', model, response, options);
-//			TODO: Parse user ID and update hash
-//			FAKE REDIRECT FOR TESTING
-//			location.hash = '#result/' + response.userToken;
+			console.info(this.name + ': Success!', response);
+			location.hash = '#result/' + JSON.stringify(response);
 		}
 	});
 });

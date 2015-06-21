@@ -1,3 +1,4 @@
+/* global . */
 define([
 	'jquery',
 	'underscore',
@@ -5,9 +6,9 @@ define([
 	'Mustache',
 	'views/AbstractView',
 	'models/ResultModel',
+	'models/BookingModel',
 	'text!/templates/result_view.html',
-	'text!/templates/result_table_row.html',
-	'text!/resources/fakeServiceReponse.json'
+	'text!/templates/result_table_row.html'
 ], function DefineResultView(
 	_,
 	$,
@@ -15,48 +16,49 @@ define([
 	Mustache,
 	AbstractView,
 	ResultModel,
+	BookingModel,
 	templateTable,
-	templateTableRow,
-	fakeResponse
+	templateTableRow
 ) {
 	return AbstractView.extend({
 		el: '#container',
-		events: {},
+		events: {
+			'click .book': 'doBooking'
+		},
 		name: 'ResultView',
 		initialize: function(options) {
 			console.log(this.name + ': init');
 			this.templateTable = templateTable;
 			this.templateTableRow = templateTableRow;			
 			this.pollingInterval = 5000;
-			this.userToken = options.userToken;
+			this.maxTries = 10;
+			this.currentTry = 0;
 			this.results = [];
+			this.options = JSON.parse(options.response);
 			
-			this.model = new ResultModel(this.userToken);
-			this.model.on('change', this.fetchSuccess.bind(this));
+			this.resultModel = new ResultModel();
+			this.bookingModel = new BookingModel();
 			
-//			this.interval = window.setInterval(this.fetch.bind(this), this.pollingInterval);
-			
-//			this.resultID = options.resultID;
-//			this.results = JSON.parse(fakeResponse).possibleBookings;
+			this.interval = window.setInterval(this.fetch.bind(this), this.pollingInterval);
 		},
 		getTemplateData: function() {
 			console.log(this.name + ': getTemplateData');
-			var data = {},
-				rows = [];
+			var data = {
+					rows: ''
+				};
 
 			this.results.forEach(function forEachResult(result) {
-				rows.push(Mustache.render(this.templateTableRow, {
+				data.rows += Mustache.render(this.templateTableRow, {
 					name: result.placeName,
 					address: result.placeAddress,
 					date: result.date,
 					time: result.bookingTime,
-					bookingUrl: result.bookingUrl
-				}));
+					bookingUrl: result.bookingUrl,
+					dateUrl: result.dateUrl
+				});
 			}, this);
-			
-			data.rows = rows.join();
 
-			data.hasResult = data.rows.length > 0;
+			data.hasResults = this.results.length > 0;
 
 			return data;
 		},
@@ -67,12 +69,57 @@ define([
 			return this;
 		},
 		fetch: function() {
-			console.log(this.name + ': Fetching data...');
-			this.model.fetch();
+			this.currentTry++;
+			console.log(this.name + ': Saveing data... %d try', this.currentTry);
+			this.resultModel.save(this.options, {
+				success: this.fetchSuccess.bind(this),
+				error: this.fetchError.bind(this)
+			});
 		},
 		fetchSuccess: function(model, response, options) {
-			console.log(this.name + ': Fetch-Results >', response);
-			window.clearInterval(this.interval);
+			console.log(this.name + ': Save-Results >', response);
+			
+			if (response) {
+				window.clearInterval(this.interval);	
+				this.results = response.possibleBookings;
+				this.render();
+			}
+		},
+		fetchError: function() {
+			console.log(this.name + ': Save failed!')
+			if (this.currentTry >= this.maxTries) {
+				console.warn(this.name + ': Stop polling after %d fails!', this.maxTries);
+				window.clearInterval(this.interval);
+			}
+		},
+		doBooking: function(e) {
+			console.log(this.name + ': doBooking!');
+			var booking = e.target,
+				bookingData = {
+					user: this.options,
+					desiredBooking: {
+						bookingTime: booking.dataset.bookingTime,
+						bookingUrl: booking.dataset.bookingUrl,
+						date: booking.dataset.date,
+						dateUrl: booking.dataset.dateUrl,
+						placeAddress: booking.dataset.placeAddress,
+						placeName: booking.dataset.placeName 
+					}
+				};
+			
+			console.log(this.name + ': BookingData >', bookingData);
+			
+			this.bookingModel.save(bookingData, {
+				success: this.bookingSuccess.bind(this),
+				error: this.bookingError.bind(this)
+			});			
+		},
+		bookingSuccess: function(response) {
+			console.log(this.name + ': bookingSuccess!', response);
+		},
+		bookingError: function(response) {
+			console.log(this.name + ': bookingError!', response);
 		}
+		
 	});
 });

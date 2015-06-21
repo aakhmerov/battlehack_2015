@@ -1,13 +1,13 @@
 define([
 	'jquery',
 	'Backbone'
-], function DefineResultModel(
+], function DefineBookingModel(
 	$,
 	Backbone
 ) {
 	return Backbone.Model.extend({
-		url: '/melder-api/services/amt/bookings/',
-		name: 'ResultModel',
+		url: '/melder-api/services/appointment/book',
+		name: 'BookingModel',
 		initialize: function() {
 			console.log(this.name + ': init');
 		}
