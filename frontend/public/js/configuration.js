@@ -11,7 +11,8 @@ require.config({
 		'json2': 'libs/json2-min',
 		'bootstrap': 'libs/bootstrap-min',
 		'select2': 'libs/select2-min',
-		'bootstrap.slider': 'libs/bootstrap.slider'
+		'bootstrap.slider': 'libs/bootstrap.slider',
+		'braintree': 'libs/braintree.min'
 	},
 	shim: {
 		'bootstrap': {

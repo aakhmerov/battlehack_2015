@@ -25,6 +25,8 @@
 	</div>
 </div>
 <div id="payment">
-	<span>You will have to pay a fee of <strong>$100</strong></span>
-	<button class="btn btn-primary">Pay with paypal</button>
+	<form id="checkout" method="post" action="/checkout">
+		<div id="payment-form"></div>
+		<input type="submit" value="Pay $100" />
+	</form>
 </div>
