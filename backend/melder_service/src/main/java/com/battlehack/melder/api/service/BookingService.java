@@ -146,6 +146,7 @@ public class BookingService {
         result.setEmail(requestTO.getUser().getEmail());
         result.setService(requestTO.getDesiredBooking().getServiceId());
         result.setUserId(requestTO.getUser().getId());
+        result.setTime(requestTO.getDesiredBooking().getBookingTime());
         return result;
     }
 }

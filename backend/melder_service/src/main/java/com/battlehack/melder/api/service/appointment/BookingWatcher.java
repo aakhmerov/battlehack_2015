@@ -1,14 +1,22 @@
 package com.battlehack.melder.api.service.appointment;
 
 import com.battlehack.melder.api.service.AmtService;
-import com.battlehack.melder.api.service.BookingService;
 import com.battlehack.melder.api.tos.PossibleBookingTO;
 import com.battlehack.melder.api.tos.PossibleBookingsTO;
 import com.battlehack.melder.api.tos.appointment.AppointmentRequestTO;
 import com.battlehack.melder.api.tos.appointment.BookingConfirmationTO;
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Message;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by aakhmerov on 21.06.15.
@@ -16,13 +24,19 @@ import org.slf4j.LoggerFactory;
 public class BookingWatcher extends Thread {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingWatcher.class);
 //  five minutes
-    private static final long SLEEP_TIME = 1000 * 60 * 5;
-    private static final long MINUTE = 1000 * 40 * 1;
+    private static final long SLEEP_TIME = 1000 * 60 * 1;
+    private static final long MINUTE = 1000 * 10 * 1;
+    private static final String FROM = "melder@melder.com";
+    private static final String API_USER = "";
+    private static final String API_KEY = "";
     private BookingConfirmationTO booking;
     private AppointmentRequestTO search;
     boolean rescheduled = false;
     private AmtService amtService;
     private AppointmentService appointmentService;
+
+    public static final String ACCOUNT_SID = "AC408821fcdcb2a3d9d31e45c8d61236b7";
+    public static final String AUTH_TOKEN = "c9f2243fafba3d1c71daadfaa94c1e41";
 
     public void setBooking(BookingConfirmationTO booking) {
         this.booking = booking;
@@ -71,9 +85,24 @@ public class BookingWatcher extends Thread {
      * @param updatedConfirmation
      */
     private void notifyUser(BookingConfirmationTO updatedConfirmation) {
-//        TODO: implement
-        LOGGER.info("booked better appointment for user [" + updatedConfirmation.getUserId() +
-                "] on [" +updatedConfirmation.getDate() + "] instead [" + this.getBooking().getDate() + "]");
+        TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+
+        // Build the parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("To", updatedConfirmation.getPhone()));
+        params.add(new BasicNameValuePair("From", "melder"));
+        params.add(new BasicNameValuePair("Body", "booked better appointment for user [" + updatedConfirmation.getUserId() +
+                "] on [" +updatedConfirmation.getDate() + "] instead [" + this.getBooking().getDate() + "]"));
+
+        MessageFactory messageFactory = client.getAccount().getMessageFactory();
+        try {
+            Message message = messageFactory.create(params);
+            LOGGER.info("sent sms " + message.getSid());
+        } catch (TwilioRestException e) {
+            LOGGER.error("can't text",e);
+        }
+
+
     }
 
     /**

@@ -17,6 +17,7 @@ public class BookingConfirmationTO {
     private String name;
     private String phone;
     private Long userId;
+    private String time;
 
     public Long getUserId() {
         return userId;
@@ -96,5 +97,13 @@ public class BookingConfirmationTO {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

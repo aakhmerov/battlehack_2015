@@ -34,7 +34,7 @@ public class AppointmentServiceTest {
         UserDataTO testUser = new UserDataTO();
         testUser.setFirstName("Test Vorname");
         testUser.setLastName("Testnachname");
-        testUser.setPhone("01631737743");
+        testUser.setPhone("+4917687825440");
         testUser.setEmail("test@test.com");
         List<String> daysList = new ArrayList<String>();
         daysList.add("monday");
@@ -54,6 +54,7 @@ public class AppointmentServiceTest {
         assertThat(confirmationTO.getEmail(),is(notNullValue()));
         assertThat(confirmationTO.getService(),is(notNullValue()));
         assertThat(confirmationTO.getUserId(),is(notNullValue()));
+        assertThat(confirmationTO.getTime(),is(notNullValue()));
 
         Thread.currentThread().join(60000);
     }
