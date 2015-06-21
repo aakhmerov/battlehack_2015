@@ -98,16 +98,16 @@ define([
 				bookingData = {
 					user: this.options,
 					desiredBooking: {
-						bookingTime: booking.dataset.bookingTime,
-						bookingUrl: booking.dataset.bookingUrl,
+						bookingTime: booking.dataset.bookingtime,
+						bookingUrl: booking.dataset.bookingurl,
 						date: booking.dataset.date,
-						dateUrl: booking.dataset.dateUrl,
-						placeAddress: booking.dataset.placeAddress,
-						placeName: booking.dataset.placeName 
+						dateUrl: booking.dataset.dateurl,
+						placeAddress: booking.dataset.placeaddress,
+						placeName: booking.dataset.placename 
 					}
 				};
 			
-			console.log(this.name + ': BookingData >', bookingData);
+			console.log(this.name + ': BookingData >', bookingData, booking.dataset);
 			
 			this.bookingModel.save(bookingData, {
 				success: this.bookingSuccess.bind(this),

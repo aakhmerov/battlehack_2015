@@ -7,6 +7,10 @@
     width: 50%;
 }
 
+#booking {
+	height: 400px;
+}
+
 #booking .headline {
 	position: relative;
 	margin: 0 auto;
