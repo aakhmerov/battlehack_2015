@@ -1,16 +1,20 @@
 package com.battlehack.melder.api.service;
 
+import com.battlehack.melder.api.domain.entities.User;
+import com.battlehack.melder.api.domain.repositories.UserRepository;
 import com.battlehack.melder.api.tos.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by aakhmerov on 20.06.15.
@@ -41,25 +46,15 @@ public class AmtService {
 
     private static final HashMap <String, ServiceTO> PROVIDED_SERVICES = new HashMap<String, ServiceTO>();
     private static final int CONNECTION_TIMEOUT = 10000;
-    //  "monday","tuesday","wednesday","thursday","friday","saturday"
-    private static HashMap <String,Integer> daysMap = new HashMap<String, Integer>();
-    private static final String MONDAY = "monday";
-    private static final String TUE = "tuesday";
-    private static final String WED = "wednesday";
-    private static final String THU = "thursday";
-    private static final String FRI = "friday";
-    private static final String SAT = "saturday";
 
-    static {
-        daysMap.put(MONDAY,1);
-        daysMap.put(TUE,2);
-        daysMap.put(WED,3);
-        daysMap.put(THU,4);
-        daysMap.put(FRI,5);
-        daysMap.put(SAT,6);
-    }
+    private static final ConcurrentHashMap <Long, PossibleBookingsTO> userBookings = new ConcurrentHashMap<Long, PossibleBookingsTO>();
+    private static final ConcurrentHashMap <Long, String> userBookingsStarted = new ConcurrentHashMap<Long, String>();
+    private List <BookingsChecker> checkers = new ArrayList<BookingsChecker>();
 
     private static ServicesTO LOADED_SERVICES;
+
+    @Autowired
+    private UserRepository userRepository;
     /**
      * Connect to the website providing list of available services
      * and return them as a list
@@ -355,6 +350,9 @@ public class AmtService {
     /**
      * Locate cached service based on id
      * pull all possible bookings for it
+     *
+     * NOTE: this is sequential request!
+     *
      * @param serviceId
      * @return
      */
@@ -372,41 +370,76 @@ public class AmtService {
      * @param userDataTO
      * @return
      */
-    public PossibleBookingsTO getBookings(UserDataTO userDataTO) {
-        ServiceTO service = locateService(userDataTO.getServiceId());
-        PossibleBookingsTO bookingDates = this.getPossibleBookingDates(service);
-        bookingDates = filterDatesForUser(userDataTO,bookingDates);
-        PossibleBookingsTO bookings = this.getPossibleBookings(bookingDates);
-        return bookings;
+    public synchronized UserDataTO fetchBookings(UserDataTO userDataTO) {
+        User persistedUser = null;
+        if (userDataTO.getId() != null) {
+            persistedUser = userRepository.findOne(userDataTO.getId());
+        } else {
+            persistedUser = userRepository.save(new User());
+        }
+        userDataTO.setId(persistedUser.getId());
+        if (userBookingsStarted.get(userDataTO.getId()) == null) {
+            if (userBookings.get(userDataTO.getId()) == null || isExpired(userBookings.get(userDataTO.getId()))) {
+                startChecker(userDataTO);
+            }
+        }
+        return userDataTO;
     }
 
     /**
-     * Filter dates that are going to be scanned for individual bookings based on user's
-     * data specified for filtering
      *
-     * TODO: move to helper class
-     *
-     * @param userDataTO
-     * @param bookingDates
+     * @param possibleBookingsTO
      * @return
      */
-    private PossibleBookingsTO filterDatesForUser(UserDataTO userDataTO, PossibleBookingsTO bookingDates) {
-        PossibleBookingsTO result = new PossibleBookingsTO();
-        for (PossibleBookingTO possibleDate : bookingDates.getPossibleBookings()) {
-            List <Integer> mappedDays = mapDays(userDataTO.getDays());
-            if (mappedDays.contains(new DateTime(possibleDate.getDate()).getDayOfWeek())) {
-                result.getPossibleBookings().add(possibleDate);
-                result.setServiceId(bookingDates.getServiceId());
-            }
-        }
-        return result;
+    private boolean isExpired(PossibleBookingsTO possibleBookingsTO) {
+        return Minutes.minutesBetween(possibleBookingsTO.getFetchTimestamp(),new DateTime()).getMinutes() < 5;
     }
 
-    private List<Integer> mapDays(List<String> days) {
-        List<Integer> result = new ArrayList<Integer>();
-        for (String day : days) {
-            result.add(daysMap.get(day));
+    /**
+     * Start checker thread
+     * @param userDataTO
+     */
+    private synchronized void startChecker(UserDataTO userDataTO) {
+        BookingsChecker checker = new BookingsChecker ();
+        checker.setAmtService(this);
+        checker.setUser(userDataTO);
+        checker.start();
+        userBookingsStarted.put(userDataTO.getId(),"STARTED");
+        this.getCheckers().add(checker);
+    }
+
+
+    public List<BookingsChecker> getCheckers() {
+        return checkers;
+    }
+
+    public void setCheckers(List<BookingsChecker> checkers) {
+        this.checkers = checkers;
+    }
+
+    /**
+     * This method is invoked from executor thread in order to update cached user
+     * information with bookings
+     *
+     * @param bookings
+     * @param user
+     */
+    public void allocateBookings(PossibleBookingsTO bookings, UserDataTO user) {
+        userBookings.put(user.getId(),bookings);
+        userBookingsStarted.remove(user.getId());
+    }
+
+    /**
+     * Get bookings of user from fetched cache
+     * @param userDataTO
+     * @return
+     */
+    public PossibleBookingsTO getFetchedBookings(UserDataTO userDataTO) {
+        if (userDataTO.getId() != null) {
+            return userBookings.get(userDataTO.getId());
+        } else {
+            return null;
         }
-        return result;
+
     }
 }

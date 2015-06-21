@@ -17,6 +17,7 @@ import java.util.List;
  */
 @XmlRootElement
 public class UserDataTO {
+    private Long id;
     private String email;
     private String lastName;
     private String firstName;
@@ -25,6 +26,14 @@ public class UserDataTO {
     private List<String> zipCodes;
     private List <String> days;
     private String serviceId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

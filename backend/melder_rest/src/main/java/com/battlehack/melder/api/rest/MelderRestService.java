@@ -1,6 +1,5 @@
 package com.battlehack.melder.api.rest;
 
-import com.battlehack.melder.api.domain.entities.Status;
 import com.battlehack.melder.api.service.AmtService;
 import com.battlehack.melder.api.tos.PossibleBookingsTO;
 import com.battlehack.melder.api.tos.ServicesTO;
@@ -51,6 +50,14 @@ public class MelderRestService {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("/bookings/fetch")
+    public UserDataTO fetchBookings(UserDataTO userDataTO) {
+        return amtService.fetchBookings(userDataTO);
+    }
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/bookings")
     public PossibleBookingsTO getBookings(UserDataTO userDataTO) {
         ObjectMapper mapper = new ObjectMapper();
@@ -59,7 +66,7 @@ public class MelderRestService {
         } catch (JsonProcessingException e) {
             LOGGER.error("cant serialize user",e);
         }
-        PossibleBookingsTO result = this.amtService.getBookings(userDataTO);
+        PossibleBookingsTO result = this.amtService.getFetchedBookings(userDataTO);
         return result;
     }
 }
