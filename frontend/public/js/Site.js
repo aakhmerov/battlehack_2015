@@ -38,7 +38,7 @@ define([
 		}
 		else if(page === 'result') {
 			this.currentPage = new ResultView({
-				userToken: parameter
+				response: parameter
 			});
 		}
 		else {
