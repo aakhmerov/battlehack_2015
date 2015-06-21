@@ -15,9 +15,11 @@
 	<input class="required" name="phone" placeholder="Phone" value="0123456789"/><br />
 </div>
 
-<button id="toggle-optional" class="btn btn-info hidden">Toggle Optional</button>
+
+<button id="toggle-optional" class="btn btn-info hidden">Additional Options >></button>
 <div id="optional-information" class="hidden">
 	<div class="days">
+		<span style="color:#008cba;">Days:</span>&nbsp;&nbsp;&nbsp;
 		<div class="day btn btn-success" data-day="monday">Monday</div>
 		<div class="day btn btn-success" data-day="tuesday">Tuesday</div>
 		<div class="day btn btn-success" data-day="wednesday">Wednesday</div>
@@ -26,9 +28,9 @@
 		<div class="day btn btn-success" data-day="saturday">Saturday</div>
 	</div>
 	<div class="time">
-		Time: <span>8:00</span>
+		<span style="color:#008cba;">Time:</span>&nbsp;&nbsp;&nbsp;<span style="color:#008cba;">8:00</span>
 		<input class="optional" id="optional-time" type="text" class="span2" value="" data-slider-min="8" data-slider-max="20" data-slider-step="1" data-slider-value="[10,18]"/>
-		<span>20:00</span>
+		<span style="color:#008cba;">20:00</span>
 	</div>
 	<div class="zipcodes">
 		<select class="optional" id="optional-zipcode" multiple="multiple"></select>
@@ -36,5 +38,5 @@
 </div>
 
 <div id="submit-container" class="hidden">
-	<button class="btn btn-success disabled">Submit</button>
+	<button class="btn btn-primary disabled">Submit</button>
 </div>
