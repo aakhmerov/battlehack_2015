@@ -17,7 +17,7 @@ public class BookingWatcher extends Thread {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingWatcher.class);
 //  five minutes
     private static final long SLEEP_TIME = 1000 * 60 * 5;
-    private static final long MINUTE = 1000 * 60 * 1;
+    private static final long MINUTE = 1000 * 40 * 1;
     private BookingConfirmationTO booking;
     private AppointmentRequestTO search;
     boolean rescheduled = false;
@@ -72,6 +72,8 @@ public class BookingWatcher extends Thread {
      */
     private void notifyUser(BookingConfirmationTO updatedConfirmation) {
 //        TODO: implement
+        LOGGER.info("booked better appointment for user [" + updatedConfirmation.getUserId() +
+                "] on [" +updatedConfirmation.getDate() + "] instead [" + this.getBooking().getDate() + "]");
     }
 
     /**

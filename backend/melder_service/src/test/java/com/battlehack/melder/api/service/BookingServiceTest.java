@@ -36,18 +36,18 @@ public class BookingServiceTest {
         user.setLastName("Test");
         user.setServiceId("158142");
 
-        BookingConfirmationTO result = bookingService.performBooking(bookings.getPossibleBookings().get(10),user);
-        assertThat(result,is(notNullValue()));
-        assertThat(result.getCancelCode(),is(notNullValue()));
-        assertThat(result.getNumber(),is(notNullValue()));
-        assertThat(result.getDate(),is(notNullValue()));
-        assertThat(result.getName(),is(notNullValue()));
-        assertThat(result.getAddress(),is(notNullValue()));
-        assertThat(result.getPlace(),is(notNullValue()));
-        assertThat(result.getService(),is(notNullValue()));
-        assertThat(result.getEmail(),is(notNullValue()));
-
-        ObjectMapper mapper = new ObjectMapper();
-        System.out.println(mapper.writeValueAsString(result));
+//        BookingConfirmationTO result = bookingService.performBooking(bookings.getPossibleBookings().get(10),user);
+//        assertThat(result,is(notNullValue()));
+//        assertThat(result.getCancelCode(),is(notNullValue()));
+//        assertThat(result.getNumber(),is(notNullValue()));
+//        assertThat(result.getDate(),is(notNullValue()));
+//        assertThat(result.getName(),is(notNullValue()));
+//        assertThat(result.getAddress(),is(notNullValue()));
+//        assertThat(result.getPlace(),is(notNullValue()));
+//        assertThat(result.getService(),is(notNullValue()));
+//        assertThat(result.getEmail(),is(notNullValue()));
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        System.out.println(mapper.writeValueAsString(result));
     }
 }

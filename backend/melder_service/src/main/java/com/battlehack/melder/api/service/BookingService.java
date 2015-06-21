@@ -1,14 +1,18 @@
 package com.battlehack.melder.api.service;
 
-import com.battlehack.melder.api.tos.appointment.AppointmentRequestTO;
-import com.battlehack.melder.api.tos.appointment.BookingConfirmationTO;
 import com.battlehack.melder.api.tos.PossibleBookingTO;
 import com.battlehack.melder.api.tos.UserDataTO;
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
+import com.battlehack.melder.api.tos.appointment.AppointmentRequestTO;
+import com.battlehack.melder.api.tos.appointment.BookingConfirmationTO;
+import com.gargoylesoftware.htmlunit.ConfirmHandler;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -29,7 +33,17 @@ public class BookingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingService.class);
     private static final String BOOKING_BASE = "https://service.berlin.de/terminvereinbarung/termin/";
 
-    public BookingConfirmationTO performBooking (PossibleBookingTO possibleBooking,UserDataTO user) {
+    /**
+     * Go to website and perform booking for the user
+     *
+     * NOTE: This is working implementation and you will get registered for real
+     * with all consequences, please use with caution!
+     *
+     * @param possibleBooking
+     * @param user
+     * @return
+     */
+    private BookingConfirmationTO performBooking (PossibleBookingTO possibleBooking,UserDataTO user) {
         BookingConfirmationTO result = new BookingConfirmationTO ();
         Connection.Response bookingForm = null;
         try {
@@ -129,6 +143,9 @@ public class BookingService {
         result.setDate(requestTO.getDesiredBooking().getDate());
         result.setNumber("test number");
         result.setPhone(requestTO.getUser().getPhone());
+        result.setEmail(requestTO.getUser().getEmail());
+        result.setService(requestTO.getDesiredBooking().getServiceId());
+        result.setUserId(requestTO.getUser().getId());
         return result;
     }
 }
