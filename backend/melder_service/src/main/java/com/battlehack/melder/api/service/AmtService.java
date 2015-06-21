@@ -374,8 +374,9 @@ public class AmtService {
         MelderUser persistedMelderUser = null;
         if (userDataTO.getId() != null) {
             persistedMelderUser = melderUserRepository.findOne(userDataTO.getId());
-        } else {
-            persistedMelderUser = melderUserRepository.save(new MelderUser());
+        }
+        if (persistedMelderUser == null) {
+            melderUserRepository.save(new MelderUser());
         }
         userDataTO.setId(persistedMelderUser.getId());
         if (userBookingsStarted.get(userDataTO.getId()) == null) {
