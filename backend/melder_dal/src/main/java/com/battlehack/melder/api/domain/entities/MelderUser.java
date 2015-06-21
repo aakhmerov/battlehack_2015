@@ -10,5 +10,5 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-public class User extends AbstractPersistable<Long> {
+public class MelderUser extends AbstractPersistable<Long> {
 }

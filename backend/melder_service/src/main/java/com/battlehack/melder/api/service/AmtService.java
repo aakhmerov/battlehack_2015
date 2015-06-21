@@ -1,7 +1,7 @@
 package com.battlehack.melder.api.service;
 
-import com.battlehack.melder.api.domain.entities.User;
-import com.battlehack.melder.api.domain.repositories.UserRepository;
+import com.battlehack.melder.api.domain.entities.MelderUser;
+import com.battlehack.melder.api.domain.repositories.MelderUserRepository;
 import com.battlehack.melder.api.tos.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.NameValuePair;
@@ -54,7 +54,7 @@ public class AmtService {
     private static ServicesTO LOADED_SERVICES;
 
     @Autowired
-    private UserRepository userRepository;
+    private MelderUserRepository melderUserRepository;
     /**
      * Connect to the website providing list of available services
      * and return them as a list
@@ -371,13 +371,13 @@ public class AmtService {
      * @return
      */
     public synchronized UserDataTO fetchBookings(UserDataTO userDataTO) {
-        User persistedUser = null;
+        MelderUser persistedMelderUser = null;
         if (userDataTO.getId() != null) {
-            persistedUser = userRepository.findOne(userDataTO.getId());
+            persistedMelderUser = melderUserRepository.findOne(userDataTO.getId());
         } else {
-            persistedUser = userRepository.save(new User());
+            persistedMelderUser = melderUserRepository.save(new MelderUser());
         }
-        userDataTO.setId(persistedUser.getId());
+        userDataTO.setId(persistedMelderUser.getId());
         if (userBookingsStarted.get(userDataTO.getId()) == null) {
             if (userBookings.get(userDataTO.getId()) == null || isExpired(userBookings.get(userDataTO.getId()))) {
                 startChecker(userDataTO);
