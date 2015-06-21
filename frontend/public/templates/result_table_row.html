@@ -4,6 +4,16 @@
 	<td>{{date}}</td>
 	<td>{{time}}</td>
 	<td>
-		<a target="_blank" class="btn btn-primary" href="{{bookingUrl}}">BOOK!</a>
+		<button
+			class="btn btn-primary book"
+			data-bookingUrl="{{bookingUrl}}"
+			data-bookingTime="{{time}}"
+			data-date="{{date}}"
+			data-dateUrl="{{dateUrl}}"
+			data-placeAddress="{{address}}"
+			data-placeName="{{name}}"
+		>
+			BOOK!
+		</a>
 	</td>
 </tr>
