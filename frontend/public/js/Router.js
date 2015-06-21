@@ -7,7 +7,8 @@ define([
 		routes: {
 			'': 'welcome',
 			'search': 'search',
-			'result/:resultId': 'result'
+			'result/:resultId': 'result',
+			'booking/:bookingData': 'booking'
 		},
 		initialize: function() {
 			console.log('Router: init');

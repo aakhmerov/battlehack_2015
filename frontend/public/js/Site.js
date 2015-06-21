@@ -3,13 +3,15 @@ define([
 	'Router',
 	'views/WelcomeView',
 	'views/FormView',
-	'views/ResultView'
+	'views/ResultView',
+	'views/BookingConfirmationView'
 ], function DefineSite(
 	Backbone,
 	Router,
 	WelcomeView,
 	FormView,
-	ResultView
+	ResultView,
+	BookingConfirmationView
 ) {
 	function Site() {
 		console.log('Site: init');
@@ -18,6 +20,7 @@ define([
 		this.router.on('route:welcome', this.pageChange.bind(this, 'welcome'));
 		this.router.on('route:search', this.pageChange.bind(this, 'search'));
 		this.router.on('route:result', this.pageChange.bind(this, 'result'));
+		this.router.on('route:booking', this.pageChange.bind(this, 'booking'));
 	}
 	
 	Site.prototype.pageChange = function(page, parameter) {
@@ -39,6 +42,11 @@ define([
 		else if(page === 'result') {
 			this.currentPage = new ResultView({
 				response: parameter
+			});
+		}
+		else if (page === 'booking') {
+			this.currentPage = new BookingConfirmationView({
+				bookingData: parameter
 			});
 		}
 		else {
